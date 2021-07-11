@@ -13,6 +13,8 @@
     <string name="login_btn">Login</string>
     <!--SignUp-->
     <string name="register_title">Cadastro</string>
+    <string name="register_finish">Finalizar cadastro</string>
+    <string name="title_activity_home">Map</string>
 
 
 </resources>

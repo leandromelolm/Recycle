@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:onClick="redirecHome"
     tools:context=".SignInActivity">
 
     <ImageView
@@ -90,6 +91,7 @@
         android:background="@color/greenpeace"
         android:backgroundTint="#34CB79"
         android:fontFamily="@font/roboto_bold"
+        android:onClick="redirecHome"
         android:text="@string/login_btn"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
