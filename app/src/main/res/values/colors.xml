@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="greenpeace">#34CB79</color>
+    <color name="desaturado">#E1FAEC</color>
+    <color name="titulos">#322153</color>
+    <color name="textos">#6C6C80</color>
+    <color name="texto_suporte">#A0A0B2</color>
+    <color name="blocos">#FFFFFF</color>
+    <color name="background">#F0F0F5</color>
 </resources>

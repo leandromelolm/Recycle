@@ -5,9 +5,14 @@
     <string name="subtitle_stater_page">Ajudamos pessoas a reciclarem seu lixo de forma eficiente.</string>
     <string name="signin_btn">Entrar</string>
     <string name="signup_btn">Cadastre-se</string>
+    <string name="next">Seguinte</string>
+
     <!--SignIn-->
     <string name="login_name">Nome</string>
     <string name="login_password">Senha</string>
     <string name="login_btn">Login</string>
+    <!--SignUp-->
+    <string name="register_title">Cadastro</string>
+
 
 </resources>
