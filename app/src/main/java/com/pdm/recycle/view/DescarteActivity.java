@@ -18,7 +18,7 @@ public class DescarteActivity extends AppCompatActivity {
     }
 
     public void redirecHome(View v) {
-        Intent intent = new Intent(this, DescarteActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 }
