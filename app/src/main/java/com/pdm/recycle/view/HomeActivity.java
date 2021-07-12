@@ -1,4 +1,4 @@
-package com.pdm.recycle;
+package com.pdm.recycle.view;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.pdm.recycle.R;
 import com.pdm.recycle.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -30,7 +32,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityHomeBinding binding;
     private static final int FINE_LOCATION_REQUEST = 1;
     private boolean fine_location;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,4 +139,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+    public void redirectDescarte(View v) {
+        Intent intent = new Intent(this, DescarteActivity.class);
+        startActivity(intent);
+    }
+
 }

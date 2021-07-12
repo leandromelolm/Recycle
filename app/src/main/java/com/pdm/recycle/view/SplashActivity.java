@@ -1,4 +1,4 @@
-package com.pdm.recycle;
+package com.pdm.recycle.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.pdm.recycle.R;
 import com.pdm.recycle.api.AppUtil;
 
 public class SplashActivity extends AppCompatActivity {

@@ -16,5 +16,6 @@
     <string name="register_finish">Finalizar cadastro</string>
     <string name="title_activity_home">Map</string>
 
-
+    <!--Descarte-->
+    <string name="descarte_type_btn">Seguinte</string>
 </resources>

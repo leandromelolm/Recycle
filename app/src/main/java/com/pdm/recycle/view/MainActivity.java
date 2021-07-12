@@ -1,10 +1,12 @@
-package com.pdm.recycle;
+package com.pdm.recycle.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.pdm.recycle.R;
 
 public class MainActivity extends AppCompatActivity {
 
