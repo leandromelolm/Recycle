@@ -1,7 +1,7 @@
 package com.pdm.recycle.model;
 
 public class Usuario {
-    private int id;
+    private Integer id;
     private String primeiroNome;
     private String sobreNome;
     private String email;

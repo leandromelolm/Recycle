@@ -30,7 +30,7 @@
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         app:backgroundTint="@null" />
-
+    <!--Botão Solicitar coleta
     <Button
         android:id="@+id/requestdButton"
         style="@style/Widget.AppCompat.Button.Colored"
@@ -41,8 +41,9 @@
         android:backgroundTint="@color/white"
         android:enabled="false"
         android:fontFamily="@font/roboto_bold"
-        android:text="Solicitar Coleta"
+        android:text="Coletar"
         android:textColor="@color/greenpeace"
         android:textSize="15sp"
         app:backgroundTint="@null" />
+        -->
 </LinearLayout>
