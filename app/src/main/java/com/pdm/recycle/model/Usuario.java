@@ -1,35 +1,30 @@
 package com.pdm.recycle.model;
 
 public class Usuario {
-    private Integer id;
-    private String primeiroNome;
-    private String sobreNome;
+
+    private String nome;
+    private String sobrenome;
     private String email;
+    private String cpf;
     private String senha;
 
-
-    public int getId() {
-        return id;
+    public Usuario() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getNome() {
+        return nome;
     }
 
-    public String getPrimeiroNome() {
-        return primeiroNome;
-    }
-
-    public void setPrimeiroNome(String primeiroNome) {
-        this.primeiroNome = primeiroNome;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSobreNome() {
-        return sobreNome;
+        return sobrenome;
     }
 
-    public void setSobreNome(String sobreNome) {
-        this.sobreNome = sobreNome;
+    public void setSobreNome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public String getEmail() {
@@ -38,6 +33,14 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getSenha() {
