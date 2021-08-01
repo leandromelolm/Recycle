@@ -46,15 +46,15 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/personName"
+        android:id="@+id/LoginEmail"
         android:layout_width="295dp"
         android:layout_height="55dp"
         android:layout_marginBottom="348dp"
         android:background="@color/white"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:hint="@string/login_name"
-        android:inputType="textPersonName"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:paddingLeft="16dp"
         android:textColor="#000000"
         android:textSize="14sp"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/LoginPassword"
         android:layout_width="295dp"
         android:layout_height="55dp"
         android:layout_marginBottom="288dp"
@@ -91,7 +91,7 @@
         android:background="@color/greenpeace"
         android:backgroundTint="#34CB79"
         android:fontFamily="@font/roboto_bold"
-        android:onClick="redirecHome"
+        android:onClick="validarAutenticacaoUsuario"
         android:text="@string/login_btn"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
