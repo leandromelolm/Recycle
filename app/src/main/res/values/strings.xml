@@ -11,6 +11,7 @@
     <string name="login_name">Nome</string>
     <string name="login_password">Senha</string>
     <string name="login_btn">Login</string>
+    <string name="nao_tem_conta">Não tem conta? Cadastre-se</string>
     <!--SignUp-->
     <string name="register_title">Cadastro</string>
     <string name="register_finish">Finalizar cadastro</string>

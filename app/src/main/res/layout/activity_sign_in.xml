@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:onClick="redirecHome"
     tools:context=".view.SignInActivity">
 
     <ImageView
@@ -87,7 +86,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="11dp"
         android:background="@color/greenpeace"
         android:backgroundTint="#34CB79"
         android:fontFamily="@font/roboto_bold"
@@ -101,7 +100,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginPassword"
+        app:layout_constraintVertical_bias="0.200" />
+    <TextView
+        android:id="@+id/naoTemConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="abrirTelaCadastro"
+        android:text="@string/nao_tem_conta"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.100"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

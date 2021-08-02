@@ -97,6 +97,11 @@ public class SignInActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void abrirTelaCadastro(View view){
+        Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+        startActivity( intent );
+    }
     
     public void abrirTelaPrincipal(){
         Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
