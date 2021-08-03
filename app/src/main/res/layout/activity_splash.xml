@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".view.SplashActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imagelogo"
         android:layout_width="140dp"
         android:layout_height="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,5 +16,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/s_mbolo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="@string/app_name"
+        android:textColor="#322153"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagelogo"
+        app:layout_constraintVertical_bias="0.100"
+        tools:layout_editor_absolutex="500dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

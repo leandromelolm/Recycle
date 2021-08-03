@@ -104,7 +104,8 @@ public class SignInActivity extends AppCompatActivity {
     }
     
     public void abrirTelaPrincipal(){
-        Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+        //Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+        Intent intent = new Intent(SignInActivity.this, MainHomeActivity.class);
         startActivity( intent );
     }
 

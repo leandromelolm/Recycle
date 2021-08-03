@@ -139,9 +139,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
-    public void redirectDescarte(View v) {
+/*    public void redirectDescarte(View v) {
         Intent intent = new Intent(this, DescarteActivity.class);
         startActivity(intent);
-    }
+    }*/
 
 }
