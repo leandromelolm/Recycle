@@ -14,6 +14,8 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,11 @@ import androidx.navigation.ui.NavigationUI;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 
@@ -37,6 +44,7 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
     private AppBarConfiguration appBarConfiguration;
     private FirebaseAuth autenticacao;
 
+    private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +55,27 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         setSupportActionBar(toolbar);
 
 
+
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        DatabaseReference descartes = referencia.child("descartes");
+
+        descartes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("FIREBASE", dataSnapshot.getValue().toString() );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -70,9 +93,9 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng ifRecife = new LatLng(-8.058320, -34.950611);
+        // mMap.addMarker(new MarkerOptions().position(ifRecife).title("Local"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ifRecife));
     }
 
     @Override
@@ -86,6 +109,8 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         switch ((item.getItemId())){
             case R.id.menuSair:
                 autenticacao.signOut();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 finish();
                 break;
         }

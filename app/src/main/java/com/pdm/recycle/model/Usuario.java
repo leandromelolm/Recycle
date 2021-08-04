@@ -1,7 +1,12 @@
 package com.pdm.recycle.model;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+import com.pdm.recycle.control.ConfiguracaoFirebase;
+
 public class Usuario {
 
+    private String id;
     private String nome;
     private String sobrenome;
     private String email;
@@ -9,6 +14,22 @@ public class Usuario {
     private String senha;
 
     public Usuario() {
+    }
+
+    public void salvar(){
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
+        DatabaseReference usuario =  firebaseRef.child("usuarios").child(getId());
+
+        usuario.setValue(this);
+    }
+
+    @Exclude
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -19,13 +40,9 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getSobreNome() {
-        return sobrenome;
-    }
+    public String getSobrenome() { return sobrenome; }
 
-    public void setSobreNome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
+    public void setSobrenome(String sobrenome) { this.sobrenome = sobrenome;}
 
     public String getEmail() {
         return email;
@@ -43,6 +60,7 @@ public class Usuario {
         this.cpf = cpf;
     }
 
+    @Exclude
     public String getSenha() {
         return senha;
     }

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
+import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Usuario;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -55,6 +56,17 @@ public class SignUpActivity extends AppCompatActivity {
                             "Sucesso ao cadastrar usuário!",
                             Toast.LENGTH_SHORT).show();
                     finish();
+
+                    try{
+
+                        String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                        usuario.setId( identificadorUsuario);
+                        usuario.salvar();
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                 }else {
 
                     String excecao = "";
@@ -97,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
                             if (textoSenha.equals(confirmaSenha)) {
                                 Usuario usuario = new Usuario();
                                 usuario.setNome(textoNome);
-                                usuario.setSobreNome(textoSobreNome);
+                                usuario.setSobrenome(textoSobreNome);
                                 usuario.setEmail(textoEmail);
                                 usuario.setCpf(textoCpf);
                                 usuario.setSenha(textoSenha);

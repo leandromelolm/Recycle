@@ -25,8 +25,8 @@
         android:background="@color/greenpeace"
         android:backgroundTint="@color/greenpeace"
         android:fontFamily="@font/roboto_bold"
-        android:onClick="redirectDescarte"
-        android:text="Descarte"
+        android:onClick="descarte"
+        android:text="Confirme Descarte"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         app:backgroundTint="@null" />

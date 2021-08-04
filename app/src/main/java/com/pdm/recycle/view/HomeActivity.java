@@ -19,12 +19,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.pdm.recycle.R;
 import com.pdm.recycle.databinding.ActivityHomeBinding;
+import com.pdm.recycle.helper.Base64Custom;
+import com.pdm.recycle.model.Descarte;
+import com.pdm.recycle.model.Usuario;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -87,9 +91,51 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng ifRecife = new LatLng(-8.058320, -34.950611);
+       // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+
+
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick( LatLng latLng) {
+
+            Double latitude = latLng.latitude;
+            Double longitude = latLng.longitude;
+
+
+            Descarte descarte = new Descarte();
+            Usuario usuario = new Usuario();
+
+            descarte.setLatitude(latitude);
+            descarte.setLongitude(longitude);
+
+
+            String stringLongitude= String.valueOf(longitude);
+
+            String identificadorDescarte = Base64Custom.codificarBase64(stringLongitude);
+                descarte.setidDescarte( identificadorDescarte);
+            descarte.salvarDescarte();
+
+
+            Toast.makeText(HomeActivity.this,
+                    "onClick Latitude: " + latitude + " longitude:" + longitude ,
+                    Toast.LENGTH_SHORT).show();
+
+                mMap.addMarker(
+                        new MarkerOptions()
+                                .position(latLng)
+                                .title("Local")
+                                .snippet("Descrição")
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_trash_can_24))
+                );
+
+            }
+        });
+
+        mMap.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(ifRecife,15)
+        );
 
         mMap.setOnMyLocationButtonClickListener(
                 new GoogleMap.OnMyLocationButtonClickListener() {
@@ -139,9 +185,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
-/*    public void redirectDescarte(View v) {
-        Intent intent = new Intent(this, DescarteActivity.class);
+ public void descarte(View v) {
+        Intent intent = new Intent(this, MainHomeActivity.class);
         startActivity(intent);
-    }*/
+    }
 
 }
