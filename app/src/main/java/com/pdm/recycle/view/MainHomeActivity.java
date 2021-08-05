@@ -108,7 +108,7 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    private void recuperarLocaisDescarte() {
+   private void recuperarLocaisDescarte() {
 
         DatabaseReference descartes = referencia.child("descartes");
 
@@ -117,16 +117,16 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
             public void onDataChange(DataSnapshot snapshot) {
                 Log.i("FIREBASE", snapshot.getValue().toString());
                 for (DataSnapshot objSnapshot:snapshot.getChildren()){
-                    Descarte d = objSnapshot.getValue(Descarte.class);
-                    longitude = d.getLongitude();
-                    latitude = d.getLatitude();
+                    Descarte descarte = objSnapshot.getValue(Descarte.class);
+                    longitude = descarte.getLongitude();
+                    latitude = descarte.getLatitude();
                     LatLng localDescarte = new LatLng(latitude,longitude);
-                    Log.i("Teste_X", localDescarte.toString());
+                    Log.i("local_descarte", localDescarte.toString());
                     mMap.addMarker(
                             new MarkerOptions()
                                     .position(localDescarte)
                                     .title("Tipo de resíduo descartado")
-                                    .snippet("Descrição")
+                                    .snippet("Descrição" + descarte.getLatitude() +" " + descarte.getLongitude())
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                     );
                 }

@@ -24,6 +24,9 @@ public class Descarte {
         DatabaseReference descarte =  firebaseRef.child("descartes").child(idDescarte);
 
         descarte.setValue(this);
+
+        // método push() gera identificador único
+        //descarte.push().setValue(descarte);
     }
 
     public Double getLatitude() {

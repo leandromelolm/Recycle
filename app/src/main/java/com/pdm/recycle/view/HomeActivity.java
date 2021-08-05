@@ -6,10 +6,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -104,6 +108,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng ifRecife = new LatLng(-8.058320, -34.950611);
         // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 
+        StringBuilder mensagem = new StringBuilder();
+        mensagem.append("teste");
+
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -111,38 +118,39 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 Double latitude = latLng.latitude;
                 Double longitude = latLng.longitude;
 
-
                 Descarte descarte = new Descarte();
-                Usuario usuario = new Usuario();
+                //Usuario usuario = new Usuario();
 
                 descarte.setLatitude(latitude);
                 descarte.setLongitude(longitude);
 
+                //Código usado para gerar identificador
+                String latlng = String.valueOf(latLng);
+                Log.i("Teste_String_latlng", latlng);
 
-                String stringLongitude = String.valueOf(longitude);
-
-                String identificadorDescarte = Base64Custom.codificarBase64(stringLongitude);
+                String identificadorDescarte = Base64Custom.codificarBase64(latlng);
                 descarte.setidDescarte(identificadorDescarte);
+
                 descarte.salvarDescarte();
 
-
-                Toast.makeText(HomeActivity.this,
-                        "Marcado: Latitude: " + latitude + " longitude:" + longitude,
-                        Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(HomeActivity.this,
+                        "Marcado com sucesso! lat: " + latitude + " lng: " + longitude,
+                        Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
 
                 mMap.addMarker(
                         new MarkerOptions()
                                 .position(latLng)
                                 .title("Local")
-                                .snippet("Descrição")
+                                .snippet("Descrição" + descarte.getLatitude() +" " + descarte.getLongitude() )
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                 );
-
             }
         });
 
         mMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(ifRecife, 17)
+                CameraUpdateFactory.newLatLngZoom(ifRecife, 16)
         );
 
         mMap.setOnMyLocationButtonClickListener(
