@@ -17,7 +17,7 @@ public class DescarteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_descarte);
     }
 
-    public void redirecHome(View v) {
+    public void redirectMapsDescarte(View v) {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }

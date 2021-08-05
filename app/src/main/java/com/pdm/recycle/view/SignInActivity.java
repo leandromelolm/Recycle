@@ -98,6 +98,15 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
+        if(usuarioAtual != null){
+            abrirTelaPrincipal();
+        }
+    }
+
     public void abrirTelaCadastro(View view){
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
         startActivity( intent );

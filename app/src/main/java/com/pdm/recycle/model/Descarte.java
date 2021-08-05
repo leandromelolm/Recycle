@@ -1,6 +1,7 @@
 package com.pdm.recycle.model;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 
 import java.util.ArrayList;
@@ -41,9 +42,11 @@ public class Descarte {
         this.longitude = longitude;
     }
 
-  public String getidDescarte() {
+    @Exclude
+    public String getidDescarte() {
         return idDescarte;
     }
+
 
     public void setidDescarte(String idDescarte) {
         this.idDescarte = idDescarte;

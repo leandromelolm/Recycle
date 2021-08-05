@@ -32,7 +32,7 @@
         android:backgroundTint="@color/greenpeace"
         android:fontFamily="@font/roboto_bold"
         android:onClick="redirectDescarte"
-        android:text="Descartar"
+        android:text="Iniciar Descarte de Resíduos"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         app:backgroundTint="@null" />

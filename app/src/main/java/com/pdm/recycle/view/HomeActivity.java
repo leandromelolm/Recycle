@@ -71,6 +71,16 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         this.fine_location = (requestCode == FINE_LOCATION_REQUEST) && granted;
 
         if (mMap != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             mMap.setMyLocationEnabled(this.fine_location);
         }
 
@@ -92,35 +102,33 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng ifRecife = new LatLng(-8.058320, -34.950611);
-       // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-
-
+        // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onMapClick( LatLng latLng) {
+            public void onMapClick(LatLng latLng) {
 
-            Double latitude = latLng.latitude;
-            Double longitude = latLng.longitude;
-
-
-            Descarte descarte = new Descarte();
-            Usuario usuario = new Usuario();
-
-            descarte.setLatitude(latitude);
-            descarte.setLongitude(longitude);
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
 
 
-            String stringLongitude= String.valueOf(longitude);
+                Descarte descarte = new Descarte();
+                Usuario usuario = new Usuario();
 
-            String identificadorDescarte = Base64Custom.codificarBase64(stringLongitude);
-                descarte.setidDescarte( identificadorDescarte);
-            descarte.salvarDescarte();
+                descarte.setLatitude(latitude);
+                descarte.setLongitude(longitude);
 
 
-            Toast.makeText(HomeActivity.this,
-                    "onClick Latitude: " + latitude + " longitude:" + longitude ,
-                    Toast.LENGTH_SHORT).show();
+                String stringLongitude = String.valueOf(longitude);
+
+                String identificadorDescarte = Base64Custom.codificarBase64(stringLongitude);
+                descarte.setidDescarte(identificadorDescarte);
+                descarte.salvarDescarte();
+
+
+                Toast.makeText(HomeActivity.this,
+                        "Marcado: Latitude: " + latitude + " longitude:" + longitude,
+                        Toast.LENGTH_SHORT).show();
 
                 mMap.addMarker(
                         new MarkerOptions()
@@ -134,7 +142,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         mMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(ifRecife,15)
+                CameraUpdateFactory.newLatLngZoom(ifRecife, 17)
         );
 
         mMap.setOnMyLocationButtonClickListener(
@@ -156,6 +164,16 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mMap.setMyLocationEnabled(this.fine_location);
 
     }
@@ -185,7 +203,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
- public void descarte(View v) {
+ public void finalizarDescarte(View v) {
         Intent intent = new Intent(this, MainHomeActivity.class);
         startActivity(intent);
     }

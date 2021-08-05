@@ -124,7 +124,7 @@
         android:background="@color/greenpeace"
         android:backgroundTint="#34CB79"
         android:fontFamily="@font/roboto_bold"
-        android:onClick="redirecHome"
+        android:onClick="redirectMapsDescarte"
         android:text="@string/descarte_type_btn"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
