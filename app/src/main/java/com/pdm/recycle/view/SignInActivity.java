@@ -103,7 +103,8 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
         if(usuarioAtual != null){
-            abrirTelaPrincipal();
+            //abrirTelaPrincipal();
+            abrirTelaMainHome();
         }
     }
 
@@ -118,8 +119,8 @@ public class SignInActivity extends AppCompatActivity {
         startActivity( intent );
     }
 
-    /*public void redirecHome(View v) {
-        Intent intent = new Intent(this, HomeActivity.class);
+    public void abrirTelaMainHome() {
+        Intent intent = new Intent(this, MainHomeActivity.class);
         startActivity(intent);
-    }*/
+    }
 }

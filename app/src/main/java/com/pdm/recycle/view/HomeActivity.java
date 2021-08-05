@@ -135,7 +135,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                                 .position(latLng)
                                 .title("Local")
                                 .snippet("Descrição")
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_trash_can_24))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                 );
 
             }

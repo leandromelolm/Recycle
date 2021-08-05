@@ -125,9 +125,9 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
                     mMap.addMarker(
                             new MarkerOptions()
                                     .position(localDescarte)
-                                    .title("Local")
+                                    .title("Tipo de resíduo descartado")
                                     .snippet("Descrição")
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_trash_can_24))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                     );
                 }
             }
