@@ -58,9 +58,10 @@ public class SignUpActivity extends AppCompatActivity {
                     finish();
 
                     try{
-
+                        /* Base64Custom gera um identificador alfanúmerico no firebase */
                         String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
                         usuario.setId( identificadorUsuario);
+
                         usuario.salvar();
 
                     }catch (Exception e){
@@ -147,10 +148,4 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
     }
-
-
-/*    public void redirecHome(View v) {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-    } */
 }

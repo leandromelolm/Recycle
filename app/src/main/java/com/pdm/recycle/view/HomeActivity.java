@@ -4,19 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,10 +27,11 @@ import com.pdm.recycle.R;
 import com.pdm.recycle.databinding.ActivityHomeBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Descarte;
-import com.pdm.recycle.model.Usuario;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private Double latitude,longitude;
+    private String latlongString;
     private GoogleMap mMap;
     private ActivityHomeBinding binding;
     private static final int FINE_LOCATION_REQUEST = 1;
@@ -54,7 +50,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         requestPermission();
-
     }
 
     private void requestPermission() {
@@ -87,9 +82,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
             mMap.setMyLocationEnabled(this.fine_location);
         }
-
     }
-
 
     /**
      * Manipulates the map once available.
@@ -106,35 +99,19 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng ifRecife = new LatLng(-8.058320, -34.950611);
-        // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-
-        StringBuilder mensagem = new StringBuilder();
-        mensagem.append("teste");
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
 
-                Double latitude = latLng.latitude;
-                Double longitude = latLng.longitude;
-
-                Descarte descarte = new Descarte();
-                //Usuario usuario = new Usuario();
-
-                descarte.setLatitude(latitude);
-                descarte.setLongitude(longitude);
-
-                //Código usado para gerar identificador
-                String latlng = String.valueOf(latLng);
-                Log.i("Teste_String_latlng", latlng);
-
-                String identificadorDescarte = Base64Custom.codificarBase64(latlng);
-                descarte.setidDescarte(identificadorDescarte);
-
-                descarte.salvarDescarte();
+                latitude      = latLng.latitude;
+                longitude     = latLng.longitude;
+                latlongString = String.valueOf(latLng);
 
                 Toast toast = Toast.makeText(HomeActivity.this,
-                        "Marcado com sucesso! lat: " + latitude + " lng: " + longitude,
+                        "Marcado Local de Descarte com Sucesso! " +
+                                "lat: " + latitude +
+                                " lng: " + longitude,
                         Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
@@ -143,7 +120,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                         new MarkerOptions()
                                 .position(latLng)
                                 .title("Local")
-                                .snippet("Descrição" + descarte.getLatitude() +" " + descarte.getLongitude() )
+                                .snippet("Descrição: " + latLng )
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                 );
             }
@@ -211,9 +188,32 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
- public void finalizarDescarte(View v) {
-        Intent intent = new Intent(this, MainHomeActivity.class);
-        startActivity(intent);
+
+ public void registrarDescarte(View v) {
+
+     Descarte descarte = new Descarte();
+     descarte.setLatitude(latitude);
+     descarte.setLongitude(longitude);
+
+     //Código usado para gerar identificador alfanumero que é salvo no firebase
+     String identificadorDescarte = Base64Custom.codificarBase64(latlongString);
+     descarte.setidDescarte(identificadorDescarte);
+
+     descarte.salvarDescarte();
+
+     abrirMenuPrincipal();
+
     }
 
+    public void abrirMenuPrincipal(){
+
+        Toast toastResgistroDescarte = Toast.makeText(HomeActivity.this,
+                "Descarte registrado com Sucesso! ",
+                Toast.LENGTH_LONG);
+        toastResgistroDescarte.setGravity(Gravity.CENTER, 0, 0);
+        toastResgistroDescarte.show();
+
+        Intent intent = new Intent(this, MainHomeActivity.class);
+        startActivity( intent );
+    }
 }

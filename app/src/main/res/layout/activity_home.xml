@@ -49,8 +49,8 @@
         android:background="@color/greenpeace"
         android:backgroundTint="@color/greenpeace"
         android:fontFamily="@font/roboto_bold"
-        android:onClick="finalizarDescarte"
-        android:text="Finalizar Descarte"
+        android:onClick="registrarDescarte"
+        android:text="Finalizar descarte de resíduo"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         app:backgroundTint="@null" />

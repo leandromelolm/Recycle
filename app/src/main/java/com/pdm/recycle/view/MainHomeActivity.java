@@ -37,7 +37,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
-import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Descarte;
 
 import java.util.ArrayList;
@@ -48,19 +47,13 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
     private GoogleMap mMap;
     private static final int FINE_LOCATION_REQUEST = 1;
     private boolean fine_location;
-
     private Double latitude;
     private Double longitude;
-
     private List<Descarte> listdescarte = new ArrayList<Descarte>();
     private ArrayAdapter<Descarte> arrayAdapterDescarte;
     private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
-
     private AppBarConfiguration appBarConfiguration;
-    // private FirebaseAuth autenticacao;
     private FirebaseAuth autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-
-    // private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
 
     @Override
@@ -115,18 +108,22 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         descartes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+
                 Log.i("FIREBASE", snapshot.getValue().toString());
+
                 for (DataSnapshot objSnapshot:snapshot.getChildren()){
                     Descarte descarte = objSnapshot.getValue(Descarte.class);
                     longitude = descarte.getLongitude();
                     latitude = descarte.getLatitude();
                     LatLng localDescarte = new LatLng(latitude,longitude);
+
                     Log.i("local_descarte", localDescarte.toString());
+
                     mMap.addMarker(
                             new MarkerOptions()
                                     .position(localDescarte)
                                     .title("Tipo de resíduo descartado")
-                                    .snippet("Descrição" + descarte.getLatitude() +" " + descarte.getLongitude())
+                                    .snippet("Descrição" + localDescarte)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                     );
                 }
@@ -151,13 +148,11 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         LatLng ifRecife = new LatLng(-8.058320, -34.950611);
         // mMap.addMarker(new MarkerOptions().position(ifRecife).title("Local"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ifRecife));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 13));
 
         recuperarLocaisDescarte();
-
     }
 
     @Override
@@ -185,10 +180,8 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void inicializarComponentes(){
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
     }
 }
