@@ -104,7 +104,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
+                mMap.clear();
                 touchMaps     = true;
                 latitude      = latLng.latitude;
                 longitude     = latLng.longitude;
