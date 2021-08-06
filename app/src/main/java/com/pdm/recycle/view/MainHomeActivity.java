@@ -49,8 +49,8 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
     private boolean fine_location;
     private Double latitude;
     private Double longitude;
-    private List<Descarte> listdescarte = new ArrayList<Descarte>();
-    private ArrayAdapter<Descarte> arrayAdapterDescarte;
+    private String tipoResiduo;
+
     private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
     private AppBarConfiguration appBarConfiguration;
     private FirebaseAuth autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
@@ -113,6 +113,7 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
 
                 for (DataSnapshot objSnapshot:snapshot.getChildren()){
                     Descarte descarte = objSnapshot.getValue(Descarte.class);
+                    tipoResiduo = descarte.getTipoResiduo();
                     longitude = descarte.getLongitude();
                     latitude = descarte.getLatitude();
                     LatLng localDescarte = new LatLng(latitude,longitude);
@@ -122,7 +123,7 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
                     mMap.addMarker(
                             new MarkerOptions()
                                     .position(localDescarte)
-                                    .title("Tipo de resíduo descartado")
+                                    .title("Tipo de resíduo: "+ tipoResiduo)
                                     .snippet("Descrição" + localDescarte)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                     );

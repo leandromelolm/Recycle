@@ -171,6 +171,7 @@
                 android:layout_weight="1"
                 android:background="@color/white" />
 
+            <!-- android:onClick="redirectMapsDescarte"-->
             <Button
                 android:id="@+id/avancarButton"
                 style="@style/Widget.AppCompat.Button.Colored"
@@ -178,7 +179,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/gradient"
                 android:fontFamily="@font/roboto_bold"
-                android:onClick="redirectMapsDescarte"
+                android:onClick="avancarMapaDescarte"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="Avançar"

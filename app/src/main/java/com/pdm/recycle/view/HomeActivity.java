@@ -30,8 +30,11 @@ import com.pdm.recycle.model.Descarte;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private String discardText;
+    //private String descarteSelecionados;
+
     private Double latitude,longitude;
-    private String latlongString;
+    private String latlongString,descarteTipoResiduo;
     private GoogleMap mMap;
     private boolean touchMaps=false;
     private ActivityHomeBinding binding;
@@ -51,6 +54,10 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         requestPermission();
+
+        Intent intent = getIntent();
+        discardText = intent.getStringExtra("chave");
+        //descarteSelecionados = intent.getStringExtra("chave");
     }
 
     private void requestPermission() {
@@ -110,19 +117,26 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 longitude     = latLng.longitude;
                 latlongString = String.valueOf(latLng);
 
+                descarteTipoResiduo = discardText;
+                //descarteSelecionados = descarteSelecionados;
+
                 Toast toast = Toast.makeText(HomeActivity.this,
                         "Marcado Local de Descarte com Sucesso! " +
-                                "lat: " + latitude +
-                                " lng: " + longitude,
+                                "\nTipo Residuo: " + descarteTipoResiduo +
+                                "\n lat: " + latitude +
+                                "\n lng: " + longitude,
                         Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
+
 
                 mMap.addMarker(
                         new MarkerOptions()
                                 .position(latLng)
                                 .title("Local")
-                                .snippet("Descrição: " + latLng )
+                                .snippet("Descrição: " +
+                                        "\n Tipo de resíduo: " + descarteTipoResiduo +
+                                        "\n"+ latLng)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                 );
             }
@@ -203,6 +217,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             Descarte descarte = new Descarte();
             descarte.setLatitude(latitude);
             descarte.setLongitude(longitude);
+            descarte.setTipoResiduo(descarteTipoResiduo);
 
             //Código usado para gerar identificador alfanumero que é salvo no firebase
             String identificadorDescarte = Base64Custom.codificarBase64(latlongString);

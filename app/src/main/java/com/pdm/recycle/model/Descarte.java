@@ -11,10 +11,7 @@ public class Descarte {
     private String idDescarte;
     private Double latitude;
     private Double longitude;
-    //protected ArrayList<Residuo> residuos;
-    //private Date dataDescarte;
-    //private boolean status;
-    //protected  ArrayList<Usuario> usuarios;
+    private String tipoResiduo;
 
     public Descarte(){
     }
@@ -50,44 +47,15 @@ public class Descarte {
         return idDescarte;
     }
 
-
     public void setidDescarte(String idDescarte) {
         this.idDescarte = idDescarte;
     }
-/*
-    public ArrayList<Usuario> getUsuarios() {
-        return usuarios;
+
+    public String getTipoResiduo() {
+        return tipoResiduo;
     }
 
-    public void setUsuarios(ArrayList<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setTipoResiduo(String tipoResiduo) {
+        this.tipoResiduo = tipoResiduo;
     }
-
-
-    public ArrayList<Residuo> getResiduos() {
-        return residuos;
-    }
-
-    public void setResiduos(ArrayList<Residuo> residuos) {
-        this.residuos = residuos;
-    }
-
-    public Date getDataDescarte() {
-        return dataDescarte;
-    }
-
-    public void setDataDescarte(Date dataDescarte) {
-        this.dataDescarte = dataDescarte;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-
- */
 }
