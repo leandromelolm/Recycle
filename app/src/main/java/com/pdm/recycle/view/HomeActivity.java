@@ -33,6 +33,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private Double latitude,longitude;
     private String latlongString;
     private GoogleMap mMap;
+    private boolean touchMaps=false;
     private ActivityHomeBinding binding;
     private static final int FINE_LOCATION_REQUEST = 1;
     private boolean fine_location;
@@ -104,6 +105,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
 
+                touchMaps     = true;
                 latitude      = latLng.latitude;
                 longitude     = latLng.longitude;
                 latlongString = String.valueOf(latLng);
@@ -191,18 +193,25 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
  public void registrarDescarte(View v) {
 
-     Descarte descarte = new Descarte();
-     descarte.setLatitude(latitude);
-     descarte.setLongitude(longitude);
+        if (!touchMaps){
+            Toast toastTouch = Toast.makeText(HomeActivity.this,
+                    "Toque no mapa o local de descarte do residuo!",
+                    Toast.LENGTH_LONG);
+            toastTouch.setGravity(Gravity.CENTER, 0, 0);
+            toastTouch.show();
+        }else {
+            Descarte descarte = new Descarte();
+            descarte.setLatitude(latitude);
+            descarte.setLongitude(longitude);
 
-     //Código usado para gerar identificador alfanumero que é salvo no firebase
-     String identificadorDescarte = Base64Custom.codificarBase64(latlongString);
-     descarte.setidDescarte(identificadorDescarte);
+            //Código usado para gerar identificador alfanumero que é salvo no firebase
+            String identificadorDescarte = Base64Custom.codificarBase64(latlongString);
+            descarte.setidDescarte(identificadorDescarte);
 
-     descarte.salvarDescarte();
+            descarte.salvarDescarte();
 
-     abrirMenuPrincipal();
-
+            abrirMenuPrincipal();
+        }
     }
 
     public void abrirMenuPrincipal(){
