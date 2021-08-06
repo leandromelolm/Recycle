@@ -112,30 +112,80 @@
         app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/residuoOrganio" />
+    <!--
+        <Button
+            android:id="@+id/seguinteButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="72dp"
+            android:background="@color/greenpeace"
+            android:backgroundTint="#34CB79"
+            android:fontFamily="@font/roboto_bold"
+            android:onClick="redirectMapsDescarte"
+            android:text="@string/descarte_type_btn"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:layout_marginTop="100dp"
+            app:backgroundTint="@null"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/outros"
+            />
+    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="72dp"
-        android:background="@color/greenpeace"
-        android:backgroundTint="#34CB79"
-        android:fontFamily="@font/roboto_bold"
-        android:onClick="redirectMapsDescarte"
-        android:text="@string/descarte_type_btn"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:layout_marginTop="100dp"
-        app:backgroundTint="@null"
-        app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outros"
-        app:layout_constraintVertical_bias="1.0"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/voltarButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:background="@drawable/gradient_reverse"
+                android:fontFamily="@font/roboto_bold"
+                android:onClick="abrirTelaPrincipal"
+                android:text="Voltar"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                app:backgroundTint="@null" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white" />
+
+            <Button
+                android:id="@+id/avancarButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:background="@drawable/gradient"
+                android:fontFamily="@font/roboto_bold"
+                android:onClick="redirectMapsDescarte"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Avançar"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                app:backgroundTint="@null" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

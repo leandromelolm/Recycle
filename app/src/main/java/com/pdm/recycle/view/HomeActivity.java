@@ -191,7 +191,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
- public void registrarDescarte(View v) {
+ public void concludeDiscard(View v) {
 
         if (!touchMaps){
             Toast toastTouch = Toast.makeText(HomeActivity.this,
@@ -224,5 +224,10 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
         Intent intent = new Intent(this, MainHomeActivity.class);
         startActivity( intent );
+    }
+
+    public void redirectDescarte(View v) {
+        Intent intent = new Intent(this, DescarteActivity.class);
+        startActivity(intent);
     }
 }

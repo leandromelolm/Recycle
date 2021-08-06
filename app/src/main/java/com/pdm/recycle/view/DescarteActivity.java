@@ -21,4 +21,10 @@ public class DescarteActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
+    public void abrirTelaPrincipal(View v){
+        //Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+        Intent intent = new Intent(this, MainHomeActivity.class);
+        startActivity( intent );
+    }
+
 }
