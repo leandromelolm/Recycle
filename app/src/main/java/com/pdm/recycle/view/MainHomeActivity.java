@@ -109,7 +109,7 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                Log.i("FIREBASE", snapshot.getValue().toString());
+            //    Log.i("FIREBASE", snapshot.getValue().toString());
 
                 for (DataSnapshot objSnapshot:snapshot.getChildren()){
                     Descarte descarte = objSnapshot.getValue(Descarte.class);

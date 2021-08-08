@@ -4,14 +4,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class Descarte {
     private String idDescarte;
     private Double latitude;
     private Double longitude;
     private String tipoResiduo;
+    private Collection<String> residuos;
 
     public Descarte(){
     }
@@ -51,6 +52,7 @@ public class Descarte {
         this.idDescarte = idDescarte;
     }
 
+
     public String getTipoResiduo() {
         return tipoResiduo;
     }
@@ -58,4 +60,21 @@ public class Descarte {
     public void setTipoResiduo(String tipoResiduo) {
         this.tipoResiduo = tipoResiduo;
     }
+
+
+    public Collection<String> getResiduos() {
+        return residuos;
+    }
+
+    public void setResiduos(Collection<String> residuos) {
+        this.residuos = residuos;
+    }
+
+    public void addTipoResiduo(String tipoResiduo) {
+       // if (residuos == null) {
+       //    residuos = new HashSet<>();
+       // }
+        residuos.add(tipoResiduo);
+    }
+
 }

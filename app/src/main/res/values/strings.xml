@@ -12,14 +12,18 @@
     <string name="login_password">Senha</string>
     <string name="login_btn">Login</string>
     <string name="nao_tem_conta">Não tem conta? Cadastre-se</string>
+
     <!--SignUp-->
     <string name="register_title">Cadastro</string>
     <string name="register_finish">Finalizar cadastro</string>
     <string name="title_activity_home">Map</string>
 
     <!--Descarte-->
+    <string name="o_que_vai_descarta">O que vai descartar?</string>
     <string name="descarte_type_btn">Seguinte</string>
+
     <string name="title_activity_main_home">MainHomeActivity</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

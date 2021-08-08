@@ -4,17 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
-import android.widget.TextView;
 
 import com.pdm.recycle.R;
+
+import java.util.ArrayList;
 
 public class DescarteActivity extends AppCompatActivity {
 
     //private CheckBox checkbox;
+
+    ArrayList<String> listaResiduos = new ArrayList<>();
 
     private CheckBox checkMetal,
             checkPapelPapelao,
@@ -51,52 +53,61 @@ public class DescarteActivity extends AppCompatActivity {
 
         if (checkMetal.isChecked()){
             String metalSelecionado =  checkMetal.getText().toString();
-            discardText = metalSelecionado;
+            //discardText = metalSelecionado;
+            listaResiduos.add(metalSelecionado);
         }
         if (checkPapelPapelao.isChecked()){
             String papelPapelaoSelecionado =  checkPapelPapelao.getText().toString();
-            discardText = discardText + " " +  papelPapelaoSelecionado;
+            //discardText = discardText + " " +  papelPapelaoSelecionado;
+            listaResiduos.add(papelPapelaoSelecionado);
         }
         if (checkPlastico.isChecked()){
             String plasticoSelecionado =  checkPlastico.getText().toString();
-            discardText = discardText + " " + plasticoSelecionado;
+            //discardText = discardText + " " + plasticoSelecionado;
+            listaResiduos.add(plasticoSelecionado);
         }
         if (checkPilhaBateria.isChecked()){
             String pilhaBateriaSelecionado =  checkPilhaBateria.getText().toString();
-            discardText = discardText + " " + pilhaBateriaSelecionado;
+            //discardText = discardText + " " + pilhaBateriaSelecionado;
+            listaResiduos.add(pilhaBateriaSelecionado);
         }
         if (checkOleoCozinha.isChecked()){
             String oleoCozinhaSelecionado =  checkOleoCozinha.getText().toString();
-            discardText = discardText + " " + oleoCozinhaSelecionado;
+            //discardText = discardText + " " + oleoCozinhaSelecionado;
+            listaResiduos.add(oleoCozinhaSelecionado);
         }
         if (checkResiduosEletronicos.isChecked()){
             String residuosEletronicosSelecionado =  checkResiduosEletronicos.getText().toString();
-            discardText = discardText + " " +  residuosEletronicosSelecionado;
+            //discardText = discardText + " " +  residuosEletronicosSelecionado;
+            listaResiduos.add(residuosEletronicosSelecionado);
         }
         if (checkResiduosOrganicos.isChecked()){
             String residuosOrganicosSelecionado =  checkResiduosOrganicos.getText().toString();
-            discardText = discardText + " " + residuosOrganicosSelecionado;
+            //discardText = discardText + " " + residuosOrganicosSelecionado;
+            listaResiduos.add(residuosOrganicosSelecionado);
         }
         if (checkOutros.isChecked()){
             String outrosSelecionado =  checkOutros.getText().toString();
-            discardText = discardText + " " + outrosSelecionado;
+            //discardText = discardText + " " + outrosSelecionado;
+            listaResiduos.add(outrosSelecionado);
         }
 
-        redirectMapsDescarte(discardText);
+        //redirectMapsDescarte(discardText);
+
+        redirectMapsDescarte(listaResiduos);
 
         //descarteSelecionados.setText(discardText);
         //redirectMapsDescarte(descarteSelecionados);
-
+        Log.i("TIPO_Descarte", discardText);
+        Log.i("TIPO_Des_Array", String.valueOf(listaResiduos));
     }
-
-
 
     public void avancarMapaDescarte(View view){
 
         checkbox();
     }
 
-    public void redirectMapsDescarte(String view) {
+    public void redirectMapsDescarte(ArrayList<String> view) {
         /*
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
@@ -104,6 +115,8 @@ public class DescarteActivity extends AppCompatActivity {
 
         Intent it = new Intent(this, HomeActivity.class);
         it.putExtra("chave", discardText);
+
+        it.putStringArrayListExtra("residuosSelecionados", listaResiduos);
         //it.putExtra("chave", it.putExtra("chave", String.valueOf(descarteSelecionados)));
         startActivity(it);
 

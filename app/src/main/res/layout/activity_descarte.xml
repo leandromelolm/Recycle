@@ -7,6 +7,20 @@
     tools:context=".view.DescarteActivity">
 
     <TextView
+        android:id="@+id/o_que_descartar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="@string/o_que_vai_descarta"
+        android:textColor="@color/titulos"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
         android:id="@+id/tipo_residuo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintVertical_bias="0.10" />
 
     <CheckBox
         android:id="@+id/metais"
