@@ -28,6 +28,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Selecione o tipo de Resíduo para descarte"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
