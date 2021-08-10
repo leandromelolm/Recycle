@@ -34,6 +34,13 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
 
     /* LAYOUT ESTÁ NA ACTIVITY_HOME.XML */
 
+    /*Para implementar :
+        1- recuperar Data do descarte e Enviar para o Firebase
+        2- Enviar Usuario que fez o descarte para o Firebase
+        3- Enviar situação de Coletado=FALSE para o Firebase
+
+    */
+
     private ArrayList<String> discardSelectArray;
     private Double latitude,longitude;
     private String latlongString;

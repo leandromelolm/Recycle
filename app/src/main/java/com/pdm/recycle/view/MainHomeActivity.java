@@ -136,16 +136,15 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
     }
+
     public void onInfoWindowClick(Marker marker) {
         Toast.makeText(this, "Info window clicked",
                 Toast.LENGTH_SHORT).show();
     }
 
     private void removerLocaisDescarte(){
-        Toast toast = Toast.makeText(MainHomeActivity.this,
-                "metodo de remoção", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        //video com uma solução para abrir um AlertDialog com opções para o usuario selecionar coleta
+        // https://www.youtube.com/watch?v=_-_7C-z7sjE
     }
 
     /**
@@ -165,29 +164,6 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 13));
 
         recuperarLocaisDescarte();
-        /*
-        //Testes
-       // googleMap.setOnInfoWindowClickListener();
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public boolean onMapClick(Marker marker) {
-                    Toast toast = Toast.makeText(MainHomeActivity.this,
-                            "Teste para executar remoção", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                marker.remove();
-                return true;
-
-                if(latLng !=null) {
-                    Marker marker = mMap.addMarker(
-
-                   new MarkerOptions().position(latLng).title("Local").snippet("Descriçção"));
-                    mMarkers.put(name, marker);
-                   // marker.remove();
-                }
-            }
-        });
-         */
     }
 
     @Override

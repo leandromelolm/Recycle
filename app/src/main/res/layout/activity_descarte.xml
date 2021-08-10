@@ -25,13 +25,14 @@
         android:id="@+id/tipo_residuo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Selecione o tipo de Resíduo para descarte"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintTop_toTopOf="@+id/o_que_descartar"
+        app:layout_constraintVertical_bias="0" />
 
     <CheckBox
         android:id="@+id/metais"
@@ -128,34 +129,7 @@
         app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/residuoOrganio" />
-    <!--
-        <Button
-            android:id="@+id/seguinteButton"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="72dp"
-            android:background="@color/greenpeace"
-            android:backgroundTint="#34CB79"
-            android:fontFamily="@font/roboto_bold"
-            android:onClick="redirectMapsDescarte"
-            android:text="@string/descarte_type_btn"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:layout_marginTop="100dp"
-            app:backgroundTint="@null"
-            app:cornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintTop_toBottomOf="@+id/outros"
-            />
-    -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -187,7 +161,6 @@
                 android:layout_weight="1"
                 android:background="@color/white" />
 
-            <!-- android:onClick="redirectMapsDescarte"-->
             <Button
                 android:id="@+id/avancarButton"
                 style="@style/Widget.AppCompat.Button.Colored"
@@ -206,3 +179,32 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--
+        <Button
+            android:id="@+id/seguinteButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="72dp"
+            android:background="@color/greenpeace"
+            android:backgroundTint="#34CB79"
+            android:fontFamily="@font/roboto_bold"
+            android:onClick="redirectMapsDescarte"
+            android:text="@string/descarte_type_btn"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:layout_marginTop="100dp"
+            app:backgroundTint="@null"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/outros"
+            />
+    -->
