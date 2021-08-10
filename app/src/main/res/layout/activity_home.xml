@@ -16,15 +16,16 @@
         android:layout_marginRight="1dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="1dp">
+        android:padding="0dp">
 
+<!--android:fontFamily="@font/ubuntu_bold"-->
         <TextView
             android:id="@+id/onde_vai_descarta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="28dp"
-            android:fontFamily="@font/ubuntu_bold"
+            android:fontFamily="sans-serif-black"
             android:text="@string/onde_vai_descarta"
             android:textColor="@color/titulos"
             android:textSize="30sp"
@@ -37,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="Selecione no mapa o local de descarte do residuo"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -80,15 +82,13 @@
             android:text="Voltar"
             android:textColor="#FFFFFF"
             android:textSize="15dp"
-            app:backgroundTint="@null"
-            />
+            app:backgroundTint="@null"/>
 
         <View
             android:layout_width="10dp"
             android:layout_height="0dp"
             android:background="@color/white"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/concludeButton"
@@ -103,8 +103,7 @@
             android:text="Concluir"
             android:textColor="#FFFFFF"
             android:textSize="15dp"
-            app:backgroundTint="@null"
-            />
+            app:backgroundTint="@null"/>
 
     </LinearLayout>
 

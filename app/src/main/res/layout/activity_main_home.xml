@@ -16,13 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/greenpeace"
-            app:popupTheme="@style/Theme.Recycle.PopupOverlay"
-            />
+            app:popupTheme="@style/Theme.Recycle.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main_home"
-        />
+    <include layout="@layout/content_main_home" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/discardButton"

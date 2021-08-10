@@ -31,6 +31,9 @@ import com.pdm.recycle.model.Descarte;
 import java.util.ArrayList;
 
 public class DescarteLocalizacaoActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    /* LAYOUT ESTÁ NA ACTIVITY_HOME.XML */
+
     private ArrayList<String> discardSelectArray;
     private Double latitude,longitude;
     private String latlongString;
