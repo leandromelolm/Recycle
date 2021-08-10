@@ -20,6 +20,7 @@
 
     <!--Descarte-->
     <string name="o_que_vai_descarta">O que vai descartar?</string>
+    <string name="onde_vai_descarta">Onde vai descartar?</string>
     <string name="descarte_type_btn">Seguinte</string>
 
     <string name="title_activity_main_home">MainHomeActivity</string>

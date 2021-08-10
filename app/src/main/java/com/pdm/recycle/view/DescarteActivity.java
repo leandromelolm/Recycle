@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.pdm.recycle.R;
 
@@ -14,10 +15,7 @@ import java.util.ArrayList;
 
 public class DescarteActivity extends AppCompatActivity {
 
-    //private CheckBox checkbox;
-
     ArrayList<String> listaResiduos = new ArrayList<>();
-
     private CheckBox checkMetal,
             checkPapelPapelao,
             checkPlastico,
@@ -27,7 +25,9 @@ public class DescarteActivity extends AppCompatActivity {
             checkResiduosOrganicos,
             checkOutros;
     private String discardText;
+
     //private TextView descarteSelecionados;
+    //private CheckBox checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +94,18 @@ public class DescarteActivity extends AppCompatActivity {
 
         //redirectMapsDescarte(discardText);
 
-        redirectMapsDescarte(listaResiduos);
+        if (!listaResiduos.isEmpty()) {
+            redirectMapsDescarte(listaResiduos);
 
-        //descarteSelecionados.setText(discardText);
-        //redirectMapsDescarte(descarteSelecionados);
-        Log.i("TIPO_Descarte", discardText);
-        Log.i("TIPO_Des_Array", String.valueOf(listaResiduos));
+            //descarteSelecionados.setText(discardText);
+            //redirectMapsDescarte(descarteSelecionados);
+            Log.i("TIPO_Descarte", discardText);
+            Log.i("TIPO_Des_Array", String.valueOf(listaResiduos));
+        }else{
+            Toast.makeText(DescarteActivity.this,
+                    "Selecione ao menos um tipo de resíduo!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void avancarMapaDescarte(View view){
@@ -119,8 +125,8 @@ public class DescarteActivity extends AppCompatActivity {
         it.putStringArrayListExtra("residuosSelecionados", listaResiduos);
         //it.putExtra("chave", it.putExtra("chave", String.valueOf(descarteSelecionados)));
         startActivity(it);
-
     }
+
     public void abrirTelaPrincipal(View v){
         //Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
         Intent intent = new Intent(this, MainHomeActivity.class);

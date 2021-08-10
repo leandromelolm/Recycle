@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -58,7 +60,7 @@ public class SignInActivity extends AppCompatActivity {
                     }catch ( FirebaseAuthInvalidCredentialsException e ){
                         excecao = "E-mail e senha não correspondem a um usuário cadastrado";
                     }catch (Exception e){
-                        excecao = "Erro ao cadastrar usuário: "  + e.getMessage();
+                        excecao = "Erro! tente Novamente! código do erro: "  + e.getMessage();
                         e.printStackTrace();
                     }
                     Toast.makeText(SignInActivity.this,
@@ -103,8 +105,8 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
         if(usuarioAtual != null){
-            //abrirTelaPrincipal();
-            abrirTelaMainHome();
+            abrirTelaPrincipal();
+            //abrirTelaMainHome();
         }
     }
 

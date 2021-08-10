@@ -11,16 +11,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 
 import androidx.appcompat.widget.Toolbar;
@@ -38,9 +40,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 import com.pdm.recycle.model.Descarte;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -120,21 +119,33 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
 
                     Log.i("local_descarte", localDescarte.toString());
 
-                    mMap.addMarker(
+                    Marker marker = mMap.addMarker(
                             new MarkerOptions()
                                     .position(localDescarte)
-                                    .title("Tipo de resíduo: "+ tipoResiduo)
+                                    .title("Tipo de resíduo: " + tipoResiduo)
                                     .snippet("Descrição" + localDescarte)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                     );
+                    marker.showInfoWindow();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-
+                Log.d("Erro ", error.getMessage());
             }
         });
+    }
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(this, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void removerLocaisDescarte(){
+        Toast toast = Toast.makeText(MainHomeActivity.this,
+                "metodo de remoção", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     /**
@@ -154,6 +165,29 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 13));
 
         recuperarLocaisDescarte();
+        /*
+        //Testes
+       // googleMap.setOnInfoWindowClickListener();
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public boolean onMapClick(Marker marker) {
+                    Toast toast = Toast.makeText(MainHomeActivity.this,
+                            "Teste para executar remoção", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                marker.remove();
+                return true;
+
+                if(latLng !=null) {
+                    Marker marker = mMap.addMarker(
+
+                   new MarkerOptions().position(latLng).title("Local").snippet("Descriçção"));
+                    mMarkers.put(name, marker);
+                   // marker.remove();
+                }
+            }
+        });
+         */
     }
 
     @Override

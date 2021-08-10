@@ -34,21 +34,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
-
-    private String discard;
     private ArrayList<String> discardSelectArray;
-    //private String descarteSelecionados;
-
     private Double latitude,longitude;
-    private String latlongString,descarteTipoResiduo;
-
-
-
+    private String latlongString;
     private GoogleMap mMap;
     private boolean touchMaps=false;
     private ActivityHomeBinding binding;
     private static final int FINE_LOCATION_REQUEST = 1;
     private boolean fine_location;
+
+    //private String discard;
+    //private String descarteTipoResiduo;
+    //private String descarteSelecionados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +61,13 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
         requestPermission();
 
-/*        Intent intent = getIntent();
-        discard = intent.getStringExtra("chave");*/
+         //Intent intent = getIntent();
+        //discard = intent.getStringExtra("chave");
 
         //descarteSelecionados = intent.getStringExtra("chave");
 
         Bundle bundle = getIntent().getExtras();
         discardSelectArray = bundle.getStringArrayList("residuosSelecionados");
-
     }
 
     private void requestPermission() {
@@ -131,27 +127,24 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 longitude     = latLng.longitude;
                 latlongString = String.valueOf(latLng);
 
-                descarteTipoResiduo = discard;
+                //descarteTipoResiduo = discard;
                 //descarteSelecionados = descarteSelecionados;
 
-
                 Toast toast = Toast.makeText(HomeActivity.this,
-                        "Marcado Local de Descarte com Sucesso! " +
-                               // "\nTipo Residuo: " + descarteTipoResiduo +
+                        "Marcado Local de Descarte! " +
                                 "\nTipo Residuo: " + discardSelectArray +
                                 "\n lat: " + latitude +
                                 "\n lng: " + longitude,
                         Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setGravity(Gravity.TOP, 0, 0);
                 toast.show();
-
 
                 mMap.addMarker(
                         new MarkerOptions()
                                 .position(latLng)
                                 .title("Local")
                                 .snippet("Descrição: " +
-                                        "\n Tipo de resíduo: " + descarteTipoResiduo +
+                                        " Tipo de resíduo: " + discardSelectArray +
                                         "\n"+ latLng)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
                 );
@@ -233,21 +226,15 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             Descarte descarte = new Descarte();
             descarte.setLatitude(latitude);
             descarte.setLongitude(longitude);
-
-            descarte.setTipoResiduo(descarteTipoResiduo);
             descarte.setTipoResiduo(String.valueOf(discardSelectArray));
-
-           // descarte.setidDescarte(latlongString);
-
-
-           //descarte.setResiduos(discardText2);
-
-
-
 
             //Código usado para gerar identificador alfanumero que é salvo no firebase
             String identificadorDescarte = Base64Custom.codificarBase64(latlongString);
             descarte.setidDescarte(identificadorDescarte);
+
+            //descarte.setTipoResiduo(descarteTipoResiduo);
+            //descarte.setidDescarte(latlongString);
+            //descarte.setResiduos(discardText2);
 
             descarte.salvarDescarte();
 
