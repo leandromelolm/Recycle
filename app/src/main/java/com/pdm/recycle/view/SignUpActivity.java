@@ -56,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
                             "Sucesso ao cadastrar usuário!",
                             Toast.LENGTH_SHORT).show();
                     finish();
+                    abrirTelaPrincipal();
 
                     try{
                         /* Base64Custom gera um identificador alfanúmerico no firebase */
@@ -147,5 +148,11 @@ public class SignUpActivity extends AppCompatActivity {
                     "Preencha o nome!",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void abrirTelaPrincipal(){
+        //Intent intent = new Intent(SignInActivity.this, DescarteLocalizacaoActivity.class);
+        Intent intent = new Intent(this, MainHomeActivity.class);
+        startActivity( intent );
     }
 }

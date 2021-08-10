@@ -23,17 +23,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.pdm.recycle.R;
-import com.pdm.recycle.control.ConfiguracaoFirebase;
 import com.pdm.recycle.databinding.ActivityHomeBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Descarte;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class HomeActivity extends FragmentActivity implements OnMapReadyCallback {
+public class DescarteLocalizacaoActivity extends FragmentActivity implements OnMapReadyCallback {
     private ArrayList<String> discardSelectArray;
     private Double latitude,longitude;
     private String latlongString;
@@ -130,7 +127,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 //descarteTipoResiduo = discard;
                 //descarteSelecionados = descarteSelecionados;
 
-                Toast toast = Toast.makeText(HomeActivity.this,
+                Toast toast = Toast.makeText(DescarteLocalizacaoActivity.this,
                         "Marcado Local de Descarte! " +
                                 "\nTipo Residuo: " + discardSelectArray +
                                 "\n lat: " + latitude +
@@ -159,7 +156,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 new GoogleMap.OnMyLocationButtonClickListener() {
                     @Override
                     public boolean onMyLocationButtonClick() {
-                        Toast.makeText(HomeActivity.this,
+                        Toast.makeText(DescarteLocalizacaoActivity.this,
                                 "Indo para a sua localização.", Toast.LENGTH_SHORT).show();
                         return false;
                     }
@@ -169,7 +166,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 new GoogleMap.OnMyLocationClickListener() {
                     @Override
                     public void onMyLocationClick(@NonNull Location location) {
-                        Toast.makeText(HomeActivity.this,
+                        Toast.makeText(DescarteLocalizacaoActivity.this,
                                 "Você está aqui!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -206,7 +203,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onSuccess(Location location) {
                 if(location!=null) {
-                    Toast.makeText(HomeActivity.this, "Localização atual: \n" +
+                    Toast.makeText(DescarteLocalizacaoActivity.this, "Localização atual: \n" +
                             "Lat: " + location.getLatitude() + " " +
                             "Long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
                 }
@@ -217,7 +214,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
  public void concludeDiscard(View v) {
 
         if (!touchMaps){
-            Toast toastTouch = Toast.makeText(HomeActivity.this,
+            Toast toastTouch = Toast.makeText(DescarteLocalizacaoActivity.this,
                     "Toque no mapa o local de descarte do residuo!",
                     Toast.LENGTH_LONG);
             toastTouch.setGravity(Gravity.CENTER, 0, 0);
@@ -244,7 +241,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void abrirMenuPrincipal(){
 
-        Toast toastResgistroDescarte = Toast.makeText(HomeActivity.this,
+        Toast toastResgistroDescarte = Toast.makeText(DescarteLocalizacaoActivity.this,
                 "Descarte registrado com Sucesso! ",
                 Toast.LENGTH_LONG);
         toastResgistroDescarte.setGravity(Gravity.CENTER, 0, 0);

@@ -115,11 +115,11 @@ public class DescarteActivity extends AppCompatActivity {
 
     public void redirectMapsDescarte(ArrayList<String> view) {
         /*
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, DescarteLocalizacaoActivity.class);
         startActivity(intent);
         */
 
-        Intent it = new Intent(this, HomeActivity.class);
+        Intent it = new Intent(this, DescarteLocalizacaoActivity.class);
         it.putExtra("chave", discardText);
 
         it.putStringArrayListExtra("residuosSelecionados", listaResiduos);
@@ -128,7 +128,7 @@ public class DescarteActivity extends AppCompatActivity {
     }
 
     public void abrirTelaPrincipal(View v){
-        //Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+        //Intent intent = new Intent(SignInActivity.this, DescarteLocalizacaoActivity.class);
         Intent intent = new Intent(this, MainHomeActivity.class);
         startActivity( intent );
     }

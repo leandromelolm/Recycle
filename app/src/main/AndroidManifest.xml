@@ -34,7 +34,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".view.HomeActivity"
+            android:name=".view.DescarteLocalizacaoActivity"
             android:label="@string/title_activity_home" />
         <activity android:name=".view.SignUpActivity" />
         <activity android:name=".view.SignInActivity" />
