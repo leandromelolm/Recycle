@@ -23,23 +23,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pdm.recycle.R;
+import com.pdm.recycle.control.ConfiguracaoFirebase;
 import com.pdm.recycle.databinding.ActivityHomeBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Descarte;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DescarteLocalizacaoActivity extends FragmentActivity implements OnMapReadyCallback {
 
     /* LAYOUT ESTÁ NA ACTIVITY_HOME.XML */
-
-    /*Para implementar :
-        1- recuperar Data do descarte e Enviar para o Firebase
-        2- Enviar Usuario que fez o descarte para o Firebase
-        3- Enviar situação de Coletado=FALSE para o Firebase
-
-    */
 
     private ArrayList<String> discardSelectArray;
     private Double latitude,longitude;
@@ -49,10 +47,8 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
     private ActivityHomeBinding binding;
     private static final int FINE_LOCATION_REQUEST = 1;
     private boolean fine_location;
-
-    //private String discard;
-    //private String descarteTipoResiduo;
-    //private String descarteSelecionados;
+    private FirebaseAuth autenticacao;
+    private String emailUserAutenticado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +64,9 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
 
         requestPermission();
 
-         //Intent intent = getIntent();
-        //discard = intent.getStringExtra("chave");
-
-        //descarteSelecionados = intent.getStringExtra("chave");
+        autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
+        emailUserAutenticado = usuarioAtual.getEmail();
 
         Bundle bundle = getIntent().getExtras();
         discardSelectArray = bundle.getStringArrayList("residuosSelecionados");
@@ -133,9 +128,6 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
                 latitude      = latLng.latitude;
                 longitude     = latLng.longitude;
                 latlongString = String.valueOf(latLng);
-
-                //descarteTipoResiduo = discard;
-                //descarteSelecionados = descarteSelecionados;
 
                 Toast toast = Toast.makeText(DescarteLocalizacaoActivity.this,
                         "Marcado Local de Descarte! " +
@@ -234,14 +226,17 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
             descarte.setLatitude(latitude);
             descarte.setLongitude(longitude);
             descarte.setTipoResiduo(String.valueOf(discardSelectArray));
+            descarte.setStatus("Não Coletado");
+            descarte.setUserEmail(emailUserAutenticado);
+
+            Date data = new Date(System.currentTimeMillis());
+            SimpleDateFormat formatarDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); //"yyyy-MM-dd"
+            formatarDate.format(data);
+            descarte.setDataDescarte(formatarDate.format(data));
 
             //Código usado para gerar identificador alfanumero que é salvo no firebase
             String identificadorDescarte = Base64Custom.codificarBase64(latlongString);
             descarte.setidDescarte(identificadorDescarte);
-
-            //descarte.setTipoResiduo(descarteTipoResiduo);
-            //descarte.setidDescarte(latlongString);
-            //descarte.setResiduos(discardText2);
 
             descarte.salvarDescarte();
 
@@ -250,7 +245,6 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
     }
 
     public void abrirMenuPrincipal(){
-
         Toast toastResgistroDescarte = Toast.makeText(DescarteLocalizacaoActivity.this,
                 "Descarte registrado com Sucesso! ",
                 Toast.LENGTH_LONG);

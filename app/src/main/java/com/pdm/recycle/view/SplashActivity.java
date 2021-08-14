@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.pdm.recycle.R;
 import com.pdm.recycle.api.AppUtil;
 
 public class SplashActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

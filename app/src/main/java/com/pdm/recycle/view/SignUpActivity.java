@@ -27,6 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText campoNome, campoSobreNome, campoEmail, campoCPF, campoSenha, campoConfirmaSenha;
     private FirebaseAuth autenticacao;
+    private String emailUserAutenticado;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -62,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
                         /* Base64Custom gera um identificador alfanúmerico no firebase */
                         String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
                         usuario.setId( identificadorUsuario);
-
+                        emailUserAutenticado = usuario.getEmail();
                         usuario.salvar();
 
                     }catch (Exception e){
@@ -153,6 +154,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void abrirTelaPrincipal(){
         //Intent intent = new Intent(SignInActivity.this, DescarteLocalizacaoActivity.class);
         Intent intent = new Intent(this, MainHomeActivity.class);
+        intent.putExtra("chaveEmail", String.valueOf(emailUserAutenticado));
         startActivity( intent );
     }
 }

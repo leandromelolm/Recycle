@@ -1,31 +1,38 @@
 package com.pdm.recycle.model;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Exclude;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 
-public class Descarte {
+public class Coleta {
     private String idDescarte;
     private Double latitude;
     private Double longitude;
     private String tipoResiduo;
+    private Collection<String> residuos;
     private String status;
     private String userEmail;
     private String dataDescarte;
-    private String UsuarioAutenticado;
-    private Usuario usuario;
+    private String dataColeta;
 
-    public Descarte(){
+    public Coleta(){
     }
 
-    public void salvarDescarte(){
+    public void salvarColeta(){
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
-        DatabaseReference descarte =  firebaseRef.child("descartes").child(idDescarte);
+        DatabaseReference coleta =  firebaseRef.child("coletas");
 
-        descarte.setValue(this);
+        //coleta.setValue(this);
+        coleta.push().setValue(this);  // push() gera identificador automáticamente
+    }
+
+   public String getIdDescarte() {
+        return idDescarte;
+    }
+
+    public void setIdDescarte(String idDescarte) {
+        this.idDescarte = idDescarte;
     }
 
     public Double getLatitude() {
@@ -44,16 +51,7 @@ public class Descarte {
         this.longitude = longitude;
     }
 
-    @Exclude
-    public String getidDescarte() {
-        return idDescarte;
-    }
-
-    public void setidDescarte(String idDescarte) {
-        this.idDescarte = idDescarte;
-    }
-
-    public String getTipoResiduo() {
+   public String getTipoResiduo() {
         return tipoResiduo;
     }
 
@@ -61,20 +59,12 @@ public class Descarte {
         this.tipoResiduo = tipoResiduo;
     }
 
-    public Usuario getUsuario(String emailUserAutenticado) {
-        return usuario;
+    public Collection<String> getResiduos() {
+        return residuos;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getDataDescarte() {
-        return dataDescarte;
-    }
-
-    public void setDataDescarte(String dataDescarte) {
-        this.dataDescarte = dataDescarte;
+    public void setResiduos(Collection<String> residuos) {
+        this.residuos = residuos;
     }
 
     public String getStatus() {
@@ -85,19 +75,27 @@ public class Descarte {
         this.status = status;
     }
 
-    public String getUsuarioAutenticado() {
-        return UsuarioAutenticado;
-    }
-
-    public void setUsuarioAutenticado(String usuarioAutenticado) {
-        UsuarioAutenticado = usuarioAutenticado;
-    }
-
     public String getUserEmail() {
         return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getDescarte() {
+        return dataDescarte;
+    }
+
+    public void setDataDescarte(String data) {
+        this.dataDescarte = data;
+    }
+
+    public String getDataColeta() {
+        return dataColeta;
+    }
+
+    public void setDataColeta(String dataColeta) {
+        this.dataColeta = dataColeta;
     }
 }

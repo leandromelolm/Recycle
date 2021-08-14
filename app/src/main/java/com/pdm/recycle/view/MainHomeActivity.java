@@ -1,12 +1,14 @@
 package com.pdm.recycle.view;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -15,10 +17,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +34,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,20 +42,34 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
+import com.pdm.recycle.helper.Base64Custom;
+import com.pdm.recycle.model.Coleta;
 import com.pdm.recycle.model.Descarte;
 
-public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCallback {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+public class MainHomeActivity extends AppCompatActivity implements
+        OnMapReadyCallback,
+        OnInfoWindowClickListener,
+        GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
     private static final int FINE_LOCATION_REQUEST = 1;
     private boolean fine_location;
     private Double latitude;
     private Double longitude;
-    private String tipoResiduo;
-
+    private String tipoResiduo,status,dataDescarte;
+    private ArrayList<Descarte> listDescarte;
+    private DataSnapshot locaisDescarte;
+    private String idDescarte;
+    private String userEmail;
+    private String emailUserAutenticado;
     private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
     private AppBarConfiguration appBarConfiguration;
-    private FirebaseAuth autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+    //private FirebaseAuth autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+    private FirebaseAuth autenticacao;
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
 
     @Override
@@ -66,6 +83,11 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         inicializarComponentes();
 
         requestPermission();
+
+        autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
+        emailUserAutenticado = usuarioAtual.getEmail();
+
     }
 
     private void requestPermission() {
@@ -100,7 +122,7 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-   private void recuperarLocaisDescarte() {
+    private void recuperarLocaisDescarte() {
 
         DatabaseReference descartes = referencia.child("descartes");
 
@@ -108,25 +130,39 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-            //    Log.i("FIREBASE", snapshot.getValue().toString());
+                /* Salvando os dados do firebase na varíável locaisDescarte */
+                locaisDescarte = snapshot;
+                //Log.i("FIREBASE", snapshot.getValue().toString());
 
-                for (DataSnapshot objSnapshot:snapshot.getChildren()){
+                /* Limpar os marcadores no Mapa*/
+                mMap.clear();
+
+                for (DataSnapshot objSnapshot:snapshot.getChildren()) {
                     Descarte descarte = objSnapshot.getValue(Descarte.class);
+                    String descarteID = objSnapshot.getKey();
                     tipoResiduo = descarte.getTipoResiduo();
-                    longitude = descarte.getLongitude();
                     latitude = descarte.getLatitude();
-                    LatLng localDescarte = new LatLng(latitude,longitude);
+                    longitude = descarte.getLongitude();
+                    status = descarte.getStatus();
+                    dataDescarte = descarte.getDataDescarte();
+                    idDescarte = descarteID;
+                    userEmail =  descarte.getUserEmail();
+                    LatLng localDescarte = new LatLng(latitude, longitude);
 
                     Log.i("local_descarte", localDescarte.toString());
 
-                    Marker marker = mMap.addMarker(
-                            new MarkerOptions()
-                                    .position(localDescarte)
-                                    .title("Tipo de resíduo: " + tipoResiduo)
-                                    .snippet("Descrição" + localDescarte)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
-                    );
-                    marker.showInfoWindow();
+                    if (status.startsWith("Não Coletado")) {
+                        Marker marker = mMap.addMarker(
+                                new MarkerOptions()
+                                        .position(localDescarte)
+                                        .title("Tipo de resíduo: " + tipoResiduo)
+                                        .snippet("Data Descarte: " + dataDescarte +
+                                                "\n Quem Descartou: " + userEmail +
+                                                "\n Coordenada Descarte: " + localDescarte)
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
+                        );
+                        marker.hideInfoWindow();
+                    }
                 }
             }
 
@@ -137,14 +173,62 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         });
     }
 
-    public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, "Info window clicked",
-                Toast.LENGTH_SHORT).show();
+    /* Método atualiza o status do descarte no firebase para "Coletado */
+    private void informarColetaResiduo(LatLng position){
+
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
+        DatabaseReference descartes =  firebaseRef.child("descartes");
+
+        Log.i("FIREBASE", locaisDescarte.getValue().toString());
+
+        String identificadorDescarte = Base64Custom.codificarBase64(String.valueOf(position));
+
+        Log.i("coletarResiduoDescartado: ",identificadorDescarte );
+
+        for (DataSnapshot objSnapshot:locaisDescarte.getChildren()){
+            Descarte descarte = objSnapshot.getValue(Descarte.class);
+            String descarteID = objSnapshot.getKey();
+            status="Coletado";
+            Log.i(" status coletado: ", descarteID);
+
+            /* atualizando apenas o status no firebase */
+            descartes.child(identificadorDescarte).child("status").setValue(status);
+            Toast.makeText(this, "Coleta Informada!",Toast.LENGTH_LONG).show();
+
+            if(identificadorDescarte.matches(descarteID)){
+                Coleta coleta = new Coleta();
+                coleta.setTipoResiduo(descarte.getTipoResiduo());
+                coleta.setDataDescarte(descarte.getDataDescarte());
+                coleta.setLatitude(descarte.getLatitude());
+                coleta.setLongitude(descarte.getLongitude());
+                coleta.setUserEmail(emailUserAutenticado);
+
+                Date data = new Date(System.currentTimeMillis());
+                SimpleDateFormat formatarDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                formatarDate.format(data);
+
+                coleta.setDataColeta(formatarDate.format(data));
+
+                coleta.salvarColeta();
+            }
+        }
     }
 
-    private void removerLocaisDescarte(){
-        //video com uma solução para abrir um AlertDialog com opções para o usuario selecionar coleta
-        // https://www.youtube.com/watch?v=_-_7C-z7sjE
+    /* Método atualiza o status do descarte no firebase para "Não Encontrado */
+    private void informarNaoEncontrado(LatLng position){
+
+        DatabaseReference descartes =  firebaseRef.child("descartes");
+        String identificadorDescarte = Base64Custom.codificarBase64(String.valueOf(position));
+
+        for (DataSnapshot objSnapshot:locaisDescarte.getChildren()){
+            String descarteID = objSnapshot.getKey();
+            status="Não Encontrado";
+            Log.i(" ID status no found: ", descarteID);
+
+            /* atualiza apenas o status no firebase */
+            descartes.child(identificadorDescarte).child("status").setValue(status);
+            Toast.makeText(this, "Reportado!",Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -164,6 +248,38 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 13));
 
         recuperarLocaisDescarte();
+        mMap.setOnInfoWindowClickListener(this);
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        //Toast.makeText(this, "Teste Classe onInfoWindowClick ",
+        // Toast.LENGTH_SHORT).show();
+
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("O que deseja fazer com o resíduo?");
+        builder.setMessage(marker.getTitle() +
+                " \n " + marker.getSnippet());
+
+        // add the buttons
+        builder.setPositiveButton("Coletar", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+                informarColetaResiduo(marker.getPosition());
+            }
+        });
+        builder.setNeutralButton("Não encontrado", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+                informarNaoEncontrado(marker.getPosition());
+            }
+        });
+        builder.setNegativeButton("Cancelar", null);
+
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -195,4 +311,10 @@ public class MainHomeActivity extends AppCompatActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+    @Override
+    public void onMapClick( LatLng latLng) {
+
+    }
+
 }

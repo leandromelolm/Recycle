@@ -26,6 +26,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private EditText campoEmail, campoSenha;
     private FirebaseAuth autenticacao;
+    private String emailUserAutenticado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 if( task.isSuccessful() ){
                     abrirTelaPrincipal();
+                    emailUserAutenticado = usuario.getEmail();
                 }else {
 
                     String excecao = "";
@@ -105,8 +107,11 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
         if(usuarioAtual != null){
+            emailUserAutenticado = usuarioAtual.getEmail();
+            Toast.makeText(SignInActivity.this,
+                    "Bem Vindo, " + usuarioAtual.getEmail(),
+                    Toast.LENGTH_LONG).show();
             abrirTelaPrincipal();
-            //abrirTelaMainHome();
         }
     }
 
@@ -116,13 +121,8 @@ public class SignInActivity extends AppCompatActivity {
     }
     
     public void abrirTelaPrincipal(){
-        //Intent intent = new Intent(SignInActivity.this, DescarteLocalizacaoActivity.class);
         Intent intent = new Intent(SignInActivity.this, MainHomeActivity.class);
+        intent.putExtra("chaveEmail", String.valueOf(emailUserAutenticado));
         startActivity( intent );
-    }
-
-    public void abrirTelaMainHome() {
-        Intent intent = new Intent(this, MainHomeActivity.class);
-        startActivity(intent);
     }
 }

@@ -25,6 +25,7 @@ public class DescarteActivity extends AppCompatActivity {
             checkResiduosOrganicos,
             checkOutros;
     private String discardText;
+    //private String emailUserAutenticado;
 
     //private TextView descarteSelecionados;
     //private CheckBox checkbox;
@@ -45,6 +46,9 @@ public class DescarteActivity extends AppCompatActivity {
         checkResiduosEletronicos = findViewById(R.id.residuoEletronico);
         checkResiduosOrganicos = findViewById(R.id.residuoOrganio);
         checkOutros = findViewById(R.id.outros);
+
+        //Intent intent = getIntent();
+        //emailUserAutenticado = intent.getStringExtra("chaveEmail");
     }
 
     public void checkbox(){
@@ -114,21 +118,15 @@ public class DescarteActivity extends AppCompatActivity {
     }
 
     public void redirectMapsDescarte(ArrayList<String> view) {
-        /*
-        Intent intent = new Intent(this, DescarteLocalizacaoActivity.class);
-        startActivity(intent);
-        */
 
         Intent it = new Intent(this, DescarteLocalizacaoActivity.class);
         it.putExtra("chave", discardText);
 
         it.putStringArrayListExtra("residuosSelecionados", listaResiduos);
-        //it.putExtra("chave", it.putExtra("chave", String.valueOf(descarteSelecionados)));
         startActivity(it);
     }
 
     public void abrirTelaPrincipal(View v){
-        //Intent intent = new Intent(SignInActivity.this, DescarteLocalizacaoActivity.class);
         Intent intent = new Intent(this, MainHomeActivity.class);
         startActivity( intent );
     }
