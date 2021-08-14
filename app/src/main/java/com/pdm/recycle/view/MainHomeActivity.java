@@ -159,7 +159,8 @@ public class MainHomeActivity extends AppCompatActivity implements
                                         .snippet("Data Descarte: " + dataDescarte +
                                                 "\n Quem Descartou: " + userEmail +
                                                 "\n Coordenada Descarte: " + localDescarte)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
+                                        .icon( BitmapDescriptorFactory
+                                                .fromResource(R.drawable.icons8_recycle_24))
                         );
                         marker.hideInfoWindow();
                     }
