@@ -157,10 +157,10 @@ public class MainHomeActivity extends AppCompatActivity implements
                                         .position(localDescarte)
                                         .title("Tipo de resíduo: " + tipoResiduo)
                                         .snippet("Data Descarte: " + dataDescarte +
-                                                "\n Quem Descartou: " + userEmail +
-                                                "\n Coordenada Descarte: " + localDescarte)
+                                                "\nQuem Descartou: " + userEmail +
+                                                "\nCoordenada Descarte: " + localDescarte)
                                         .icon( BitmapDescriptorFactory
-                                                .fromResource(R.drawable.icons8_recycle_24))
+                                                .fromResource(R.drawable.pin_icon))
                         );
                         marker.hideInfoWindow();
                     }
@@ -250,6 +250,7 @@ public class MainHomeActivity extends AppCompatActivity implements
 
         recuperarLocaisDescarte();
         mMap.setOnInfoWindowClickListener(this);
+        mMap.setPadding(0,250,0,250);
     }
 
     @Override
@@ -261,7 +262,7 @@ public class MainHomeActivity extends AppCompatActivity implements
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("O que deseja fazer com o resíduo?");
         builder.setMessage(marker.getTitle() +
-                " \n " + marker.getSnippet());
+                "\n" + marker.getSnippet());
 
         // add the buttons
         builder.setPositiveButton("Coletar", new DialogInterface.OnClickListener(){

@@ -125,11 +125,8 @@
     <Button
         android:id="@+id/button"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
+        android:layout_width="295dp"
         android:layout_height="55dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="30dp"
         android:background="@color/greenpeace"
         android:backgroundTint="#34CB79"
         android:fontFamily="@font/roboto_bold"
@@ -142,10 +139,9 @@
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repeatPassword"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.527" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
