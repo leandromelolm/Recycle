@@ -4,6 +4,10 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,11 +15,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +37,8 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.navigation.ui.AppBarConfiguration;
 
 
@@ -159,8 +168,8 @@ public class MainHomeActivity extends AppCompatActivity implements
                                         .snippet("Data Descarte: " + dataDescarte +
                                                 "\nQuem Descartou: " + userEmail +
                                                 "\nCoordenada Descarte: " + localDescarte)
-                                        .icon( BitmapDescriptorFactory
-                                                .fromResource(R.drawable.pin_icon))
+                                        //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
+                                        .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
                         );
                         marker.hideInfoWindow();
                     }
@@ -173,6 +182,8 @@ public class MainHomeActivity extends AppCompatActivity implements
             }
         });
     }
+
+
 
     /* Método atualiza o status do descarte no firebase para "Coletado */
     private void informarColetaResiduo(LatLng position){
@@ -317,6 +328,17 @@ public class MainHomeActivity extends AppCompatActivity implements
     @Override
     public void onMapClick( LatLng latLng) {
 
+    }
+
+    private BitmapDescriptor vectorToBitmap(@DrawableRes int id) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        //DrawableCompat.setTint(vectorDrawable, color);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
 }

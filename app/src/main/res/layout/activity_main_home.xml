@@ -32,9 +32,9 @@
         android:layout_marginBottom="30dp"
         android:clickable="true"
         android:onClick="redirectDescarte"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="#248F55"
         app:fabSize="auto"
-        app:maxImageSize="50dp"
+        app:maxImageSize="40dp"
         app:srcCompat="@drawable/descarte_icon"
         app:tint="@null"/>
 

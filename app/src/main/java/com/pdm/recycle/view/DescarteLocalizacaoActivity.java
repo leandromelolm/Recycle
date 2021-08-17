@@ -1,12 +1,17 @@
 package com.pdm.recycle.view;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -145,13 +151,16 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
                                 .snippet("Descrição: " +
                                         " Tipo de resíduo: " + discardSelectArray +
                                         "\n"+ latLng)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
+                                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.icons8_recycle_24))
+                                .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
+                                .draggable(true) //draggable(true) permite arrastar o marcador.  Problema para corrigir - ao arrastar o marcado, não é atualizado o novo local
                 );
+
             }
         });
 
         mMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(ifRecife, 16)
+                CameraUpdateFactory.newLatLngZoom(ifRecife, 15)
         );
 
         mMap.setOnMyLocationButtonClickListener(
@@ -239,7 +248,7 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
             descarte.setidDescarte(identificadorDescarte);
 
             descarte.salvarDescarte();
-
+            finish();
             abrirMenuPrincipal();
         }
     }
@@ -258,5 +267,16 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
     public void redirectDescarte(View v) {
         Intent intent = new Intent(this, DescarteActivity.class);
         startActivity(intent);
+    }
+
+    private BitmapDescriptor vectorToBitmap(@DrawableRes int id) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        //DrawableCompat.setTint(vectorDrawable, color);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }

@@ -10,16 +10,20 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pdm.recycle.R;
+import com.pdm.recycle.control.ConfiguracaoFirebase;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
+    private String emailUserAutenticado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+
+        autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
     }
 
     public void redirectLogin(View v) {
@@ -32,4 +36,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser usuarioAtual = autenticacao.getCurrentUser();
+        if (usuarioAtual != null) {
+            emailUserAutenticado = usuarioAtual.getEmail();
+            Toast.makeText(MainActivity.this,
+                    "Bem Vindo, " + usuarioAtual.getEmail(),
+                    Toast.LENGTH_LONG).show();
+            abrirTelaPrincipal();
+        }
+    }
+
+        public void abrirTelaPrincipal(){
+            Intent intent = new Intent(MainActivity.this, MainHomeActivity.class);
+            intent.putExtra("chaveEmail", String.valueOf(emailUserAutenticado));
+            startActivity( intent );
+        }
 }
