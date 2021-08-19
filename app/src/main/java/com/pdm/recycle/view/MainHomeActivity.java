@@ -32,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 
@@ -71,7 +72,7 @@ public class MainHomeActivity extends AppCompatActivity implements
     private boolean fine_location;
     private Double latitude;
     private Double longitude;
-    private String tipoResiduo,status,dataDescarte;
+    private String tipoResiduo, status, dataDescarte, dataColeta;
     private ArrayList<Descarte> listDescarte;
     private DataSnapshot locaisDescarte;
     private String idDescarte;
@@ -133,6 +134,56 @@ public class MainHomeActivity extends AppCompatActivity implements
                 return;
             }
             mMap.setMyLocationEnabled(this.fine_location);
+        }
+    }
+    private void pesquisarLocaisDescarte(String texto){
+        //Log.d("pesquisa",texto);
+
+        mMap.clear();
+
+        for (DataSnapshot objSnapshot:locaisDescarte.getChildren()){
+            Descarte descarte = objSnapshot.getValue(Descarte.class);
+            String descarteID = objSnapshot.getKey();
+            tipoResiduo = descarte.getTipoResiduo().toLowerCase();
+            latitude = descarte.getLatitude();
+            longitude = descarte.getLongitude();
+            status = descarte.getStatus().toLowerCase();
+            dataDescarte = descarte.getDataDescarte();
+            idDescarte = descarteID;
+            userEmail =  descarte.getUserEmail();
+            LatLng localDescarte = new LatLng(latitude, longitude);
+
+            Coleta coleta = objSnapshot.getValue(Coleta.class);
+
+
+            Log.i("local_descarte", localDescarte.toString());
+
+            if (tipoResiduo.contains(texto.toLowerCase())) {
+                Marker marker = mMap.addMarker(
+                        new MarkerOptions()
+                                .position(localDescarte)
+                                .title("Tipo de resíduo: " + tipoResiduo)
+                                .snippet("Data descarte: " + dataDescarte +
+                                        "\nQuem descartou: " + userEmail +
+                                        "\nCoordenada descarte: " + localDescarte)
+                                //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
+                                .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
+                );
+            } if(status.contains(texto.toLowerCase()) && status.equals("coletado")){
+                Marker marker = mMap.addMarker(
+                        new MarkerOptions()
+                                .position(localDescarte)
+                                .title("Tipo de resíduo: " + tipoResiduo)
+                                .snippet("Data descarte: " + dataDescarte +
+                                        "\nQuem descartou: " + userEmail +
+                                        "\nCoordenada descarte: " + localDescarte)
+                                //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
+                                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                                .icon(vectorToBitmap(R.drawable.pin_icon_recycle_grey))
+                );
+
+            }
+
         }
     }
 
@@ -306,8 +357,27 @@ public class MainHomeActivity extends AppCompatActivity implements
         inflater.inflate(R.menu.menu_mainhome, menu);
 
         //configuração botão pesquisa
-        MenuItem item = menu.findItem(R.id.menuPesquisa);
-        //searchView.setMenuItem(item);
+        MenuItem pesquisa = menu.findItem(R.id.menuPesquisa);
+        SearchView editPesquisa = (SearchView) pesquisa.getActionView();
+
+        editPesquisa.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Log.d("evento", "onQueryTextChange: ");
+                if(newText !=null && !newText.isEmpty()){
+                    pesquisarLocaisDescarte( newText );
+                }
+                if(newText.length() == 0){
+                    recuperarLocaisDescarte();
+                }
+                return true;
+            }
+        });
 
         return true;
     }
