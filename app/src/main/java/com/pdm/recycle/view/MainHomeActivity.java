@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+//import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 import com.pdm.recycle.helper.Base64Custom;
@@ -80,6 +82,7 @@ public class MainHomeActivity extends AppCompatActivity implements
     //private FirebaseAuth autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
     private FirebaseAuth autenticacao;
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
+    //private MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,8 @@ public class MainHomeActivity extends AppCompatActivity implements
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
         emailUserAutenticado = usuarioAtual.getEmail();
+
+        //searchView = findViewById(R.id.materialSearchPrincipal);
 
     }
 
@@ -165,9 +170,9 @@ public class MainHomeActivity extends AppCompatActivity implements
                                 new MarkerOptions()
                                         .position(localDescarte)
                                         .title("Tipo de resíduo: " + tipoResiduo)
-                                        .snippet("Data Descarte: " + dataDescarte +
-                                                "\nQuem Descartou: " + userEmail +
-                                                "\nCoordenada Descarte: " + localDescarte)
+                                        .snippet("Data descarte: " + dataDescarte +
+                                                "\nQuem descartou: " + userEmail +
+                                                "\nCoordenada descarte: " + localDescarte)
                                         //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
                                         .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
                         );
@@ -271,12 +276,12 @@ public class MainHomeActivity extends AppCompatActivity implements
 
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("O que deseja fazer com o resíduo?");
+        builder.setTitle("O que deseja informar?");
         builder.setMessage(marker.getTitle() +
                 "\n" + marker.getSnippet());
 
         // add the buttons
-        builder.setPositiveButton("Coletar", new DialogInterface.OnClickListener(){
+        builder.setPositiveButton("Foi coletado", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i){
                 informarColetaResiduo(marker.getPosition());
@@ -297,7 +302,13 @@ public class MainHomeActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_mainhome, menu);
+        MenuInflater inflater =  getMenuInflater();
+        inflater.inflate(R.menu.menu_mainhome, menu);
+
+        //configuração botão pesquisa
+        MenuItem item = menu.findItem(R.id.menuPesquisa);
+        //searchView.setMenuItem(item);
+
         return true;
     }
 
