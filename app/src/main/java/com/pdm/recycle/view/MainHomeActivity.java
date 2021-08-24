@@ -138,6 +138,7 @@ public class MainHomeActivity extends AppCompatActivity implements
     }
     private void pesquisarLocaisDescarte(String texto){
         //Log.d("pesquisa",texto);
+        DatabaseReference coletas = referencia.child("coletas");
 
         mMap.clear();
 
@@ -154,6 +155,7 @@ public class MainHomeActivity extends AppCompatActivity implements
             LatLng localDescarte = new LatLng(latitude, longitude);
 
             Coleta coleta = objSnapshot.getValue(Coleta.class);
+            dataColeta = coleta.getDataColeta();
 
 
             Log.i("local_descarte", localDescarte.toString());
@@ -163,20 +165,20 @@ public class MainHomeActivity extends AppCompatActivity implements
                         new MarkerOptions()
                                 .position(localDescarte)
                                 .title("Tipo de resíduo: " + tipoResiduo)
-                                .snippet("Data descarte: " + dataDescarte +
-                                        "\nQuem descartou: " + userEmail +
-                                        "\nCoordenada descarte: " + localDescarte)
+                                .snippet(dataDescarte +" Toque aqui para mais detalhes")
                                 //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
                                 .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
                 );
+                marker.setTag("Data descarte: " + dataDescarte +
+                        "\nQuem descartou: " + userEmail +
+                        "\nCoordenada descarte: " + localDescarte);
+
             } if(status.contains(texto.toLowerCase()) && status.equals("coletado")){
                 Marker marker = mMap.addMarker(
                         new MarkerOptions()
                                 .position(localDescarte)
                                 .title("Tipo de resíduo: " + tipoResiduo)
-                                .snippet("Data descarte: " + dataDescarte +
-                                        "\nQuem descartou: " + userEmail +
-                                        "\nCoordenada descarte: " + localDescarte)
+                                .snippet("data descarte: " + dataDescarte)
                                 //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
                                 //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                 .icon(vectorToBitmap(R.drawable.pin_icon_recycle_grey))
@@ -221,12 +223,13 @@ public class MainHomeActivity extends AppCompatActivity implements
                                 new MarkerOptions()
                                         .position(localDescarte)
                                         .title("Tipo de resíduo: " + tipoResiduo)
-                                        .snippet("Data descarte: " + dataDescarte +
-                                                "\nQuem descartou: " + userEmail +
-                                                "\nCoordenada descarte: " + localDescarte)
+                                        .snippet(dataDescarte +" Toque aqui para mais detalhes")
                                         //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
                                         .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
                         );
+                        marker.setTag("Data descarte: " + dataDescarte +
+                                "\nQuem descartou: " + userEmail +
+                                "\nCoordenada descarte: " + localDescarte);
                         marker.hideInfoWindow();
                     }
                 }
@@ -238,8 +241,6 @@ public class MainHomeActivity extends AppCompatActivity implements
             }
         });
     }
-
-
 
     /* Método atualiza o status do descarte no firebase para "Coletado */
     private void informarColetaResiduo(LatLng position){
@@ -329,7 +330,7 @@ public class MainHomeActivity extends AppCompatActivity implements
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("O que deseja informar?");
         builder.setMessage(marker.getTitle() +
-                "\n" + marker.getSnippet());
+                "\n" + marker.getTag());
 
         // add the buttons
         builder.setPositiveButton("Foi coletado", new DialogInterface.OnClickListener(){
