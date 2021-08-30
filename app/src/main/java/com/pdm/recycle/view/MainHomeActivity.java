@@ -222,14 +222,14 @@ public class MainHomeActivity extends AppCompatActivity implements
                         Marker marker = mMap.addMarker(
                                 new MarkerOptions()
                                         .position(localDescarte)
-                                        .title("Tipo de resíduo: " + tipoResiduo)
+                                        .title("Tipo de resíduo: " + tipoResiduo.substring(1, tipoResiduo.length()-1))
                                         .snippet(dataDescarte +" Toque aqui para mais detalhes")
                                         //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
                                         .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
                         );
-                        marker.setTag("Data descarte: " + dataDescarte +
-                                "\nQuem descartou: " + userEmail +
-                                "\nCoordenada descarte: " + localDescarte);
+                        marker.setTag("\nData descarte: " + dataDescarte +
+                                "\n\nDescartado por: " + "\t"+userEmail +
+                                "\n\nCoordenada: " + localDescarte);
                         marker.hideInfoWindow();
                     }
                 }
@@ -339,13 +339,13 @@ public class MainHomeActivity extends AppCompatActivity implements
                 informarColetaResiduo(marker.getPosition());
             }
         });
-        builder.setNeutralButton("Não encontrado", new DialogInterface.OnClickListener(){
+        builder.setNegativeButton("Não encontrado", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i){
                 informarNaoEncontrado(marker.getPosition());
             }
         });
-        builder.setNegativeButton("Cancelar", null);
+        builder.setNeutralButton("Cancelar", null);
 
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
