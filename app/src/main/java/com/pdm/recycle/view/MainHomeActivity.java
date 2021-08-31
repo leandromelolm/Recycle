@@ -167,26 +167,41 @@ public class MainHomeActivity extends AppCompatActivity implements
                 Marker marker = mMap.addMarker(
                         new MarkerOptions()
                                 .position(localDescarte)
-                                .title("Tipo de resíduo: " + tipoResiduo)
+                                .title("Tipo de resíduo: " + tipoResiduo.substring(1, tipoResiduo.length()-1))
                                 .snippet(dataDescarte +" Toque aqui para mais detalhes")
                                 //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
                                 .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
                 );
-                marker.setTag("Data descarte: " + dataDescarte +
-                        "\nQuem descartou: " + userEmail +
-                        "\nCoordenada descarte: " + localDescarte);
+                marker.setTag("\nData descarte: " + dataDescarte +
+                        "\n\nDescartado por: " + userEmail +
+                        "\n\nCoordenada: " + localDescarte);
 
             } if(status.contains(texto.toLowerCase()) && status.equals("coletado")){
                 Marker marker = mMap.addMarker(
                         new MarkerOptions()
                                 .position(localDescarte)
-                                .title("Tipo de resíduo: " + tipoResiduo)
+                                .title("Tipo de resíduo: " + tipoResiduo.substring(1, tipoResiduo.length()-1))
                                 .snippet("data descarte: " + dataDescarte)
                                 //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
                                 //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                 .icon(vectorToBitmap(R.drawable.pin_icon_recycle_grey))
                 );
+                marker.setTag("\nData descarte: " + dataDescarte +
+                        "\n\nDescartado por: " + userEmail +
+                        "\n\nCoordenada: " + localDescarte);
 
+            }  if(status.contains(texto.toLowerCase()) && status.equals("não encontrado")) {
+                Marker marker = mMap.addMarker(
+                        new MarkerOptions()
+                                .position(localDescarte)
+                                .title("Tipo de resíduo: " + tipoResiduo.substring(1, tipoResiduo.length()-1))
+                                .snippet(dataDescarte +" Toque aqui para mais detalhes")
+                                //.icon( BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
+                                .icon(vectorToBitmap(R.drawable.pin_icon_recycle_red))
+                );
+                marker.setTag("\nData descarte: " + dataDescarte +
+                        "\n\nDescartado por: " + userEmail +
+                        "\n\nCoordenada: " + localDescarte);
             }
 
         }
@@ -213,7 +228,7 @@ public class MainHomeActivity extends AppCompatActivity implements
                     tipoResiduo = descarte.getTipoResiduo();
                     latitude = descarte.getLatitude();
                     longitude = descarte.getLongitude();
-                    status = descarte.getStatus();
+                    status = descarte.getStatus().toLowerCase();
                     dataDescarte = descarte.getDataDescarte();
                     idDescarte = descarteID;
                     userEmail =  descarte.getUserEmail();
@@ -221,7 +236,7 @@ public class MainHomeActivity extends AppCompatActivity implements
 
                     Log.i("local_descarte", localDescarte.toString());
 
-                    if (status.startsWith("Não Coletado")) {
+                    if (status.startsWith("não coletado")) {
                         Marker marker = mMap.addMarker(
                                 new MarkerOptions()
                                         .position(localDescarte)
@@ -231,7 +246,7 @@ public class MainHomeActivity extends AppCompatActivity implements
                                         .icon(vectorToBitmap(R.drawable.pin_icon_recycle))
                         );
                         marker.setTag("\nData descarte: " + dataDescarte +
-                                "\n\nDescartado por: " + "\t"+userEmail +
+                                "\n\nDescartado por: " + userEmail +
                                 "\n\nCoordenada: " + localDescarte);
                         marker.hideInfoWindow();
                     }
@@ -334,20 +349,19 @@ public class MainHomeActivity extends AppCompatActivity implements
         builder.setTitle("O que deseja informar?");
         builder.setMessage(marker.getTitle() +
                 "\n" + marker.getTag());
-
         // add the buttons
-        builder.setPositiveButton("Foi coletado", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i){
-                informarColetaResiduo(marker.getPosition());
-            }
-        });
-        builder.setNegativeButton("Não encontrado", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i){
-                informarNaoEncontrado(marker.getPosition());
-            }
-        });
+            builder.setPositiveButton("Foi coletado", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    informarColetaResiduo(marker.getPosition());
+                }
+            });
+            builder.setNegativeButton("Não encontrado", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    informarNaoEncontrado(marker.getPosition());
+                }
+            });
         builder.setNeutralButton("Cancelar", null);
 
         // create and show the alert dialog
@@ -377,7 +391,7 @@ public class MainHomeActivity extends AppCompatActivity implements
 
         MenuItem pesquisa = menu.findItem(R.id.menu_search);
         SearchView editPesquisa = (SearchView) pesquisa.getActionView();
-        editPesquisa.setQueryHint("Pesquise aqui, ex: Plástico");
+        editPesquisa.setQueryHint("Pesquise aqui, ex: plástico");
         editPesquisa.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
