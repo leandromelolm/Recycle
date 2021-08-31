@@ -32,7 +32,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
+
+//import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
+
 import android.widget.Toast;
 
 
@@ -358,9 +361,23 @@ public class MainHomeActivity extends AppCompatActivity implements
         inflater.inflate(R.menu.menu_mainhome, menu);
 
         //configuração botão pesquisa
-        MenuItem pesquisa = menu.findItem(R.id.menuPesquisa);
-        SearchView editPesquisa = (SearchView) pesquisa.getActionView();
+        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                Toast.makeText(MainHomeActivity.this, "implementar sugestões de pesquisa", Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return true;
+            }
+        };
+        menu.findItem(R.id.menu_search).setOnActionExpandListener(onActionExpandListener);
+
+        MenuItem pesquisa = menu.findItem(R.id.menu_search);
+        SearchView editPesquisa = (SearchView) pesquisa.getActionView();
+        editPesquisa.setQueryHint("Pesquise aqui, ex: Plástico");
         editPesquisa.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -392,8 +409,24 @@ public class MainHomeActivity extends AppCompatActivity implements
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.menu_notification:
+                openNotification();
+                return true;
+            case R.id.menu_setting:
+                openSetting();
+                return true;
         }
+
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openNotification() {
+        Toast.makeText(this, "Não implementado", Toast.LENGTH_SHORT).show();
+    }
+
+    private void openSetting() {
+        Toast.makeText(this, "Não implementado", Toast.LENGTH_SHORT).show();
     }
 
     public void redirectDescarte(View v) {

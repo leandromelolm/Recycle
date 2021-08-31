@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-   <item android:id="@+id/menuPesquisa"
+   <!-- Menu Toolbar -->
+   <!-- app:actionViewClass="android.widget.SearchView" -->
+   <item android:id="@+id/menu_search"
        android:title="Pesquisar"
-       app:showAsAction="always"
+       app:showAsAction="ifRoom|collapseActionView"
        android:icon="@drawable/ic_search_24"
-       app:actionViewClass="android.widget.SearchView"/>
+       app:actionViewClass="androidx.appcompat.widget.SearchView"
+       tools:targetApi="o"/>
 
-   <item android:id="@+id/Notificacao"
+   <item android:id="@+id/menu_notification"
        android:title="Notificação"
        app:showAsAction="never"
        android:icon="@drawable/ic_notifications_24"/>
 
-   <item android:id="@+id/MenuConfiguracoes"
+   <item android:id="@+id/menu_setting"
        android:title="Configurações"
        app:showAsAction="never"/>
 
