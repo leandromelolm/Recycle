@@ -163,7 +163,7 @@ public class MainHomeActivity extends AppCompatActivity implements
 
             Log.i("local_descarte", localDescarte.toString());
 
-            if (tipoResiduo.contains(texto.toLowerCase())) {
+            if (tipoResiduo.contains(texto.toLowerCase()) && status.startsWith("não coletado")) {
                 Marker marker = mMap.addMarker(
                         new MarkerOptions()
                                 .position(localDescarte)
