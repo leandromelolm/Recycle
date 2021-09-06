@@ -38,6 +38,7 @@ import androidx.appcompat.widget.SearchView;
 
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -60,7 +61,7 @@ import com.google.firebase.database.ValueEventListener;
 //import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
-import com.pdm.recycle.databinding.ActivityMainBinding;
+//import com.pdm.recycle.databinding.ActivityMainBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Coleta;
 import com.pdm.recycle.model.Descarte;
@@ -94,6 +95,7 @@ public class MainHomeActivity extends AppCompatActivity implements
     private ListFragment listfragment;
     private Chip plasticoCheckChip;
     private ChipGroup chipgroup;
+    String newtext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -406,6 +408,7 @@ public class MainHomeActivity extends AppCompatActivity implements
         SearchView editPesquisa = (SearchView) pesquisa.getActionView();
         editPesquisa.setQueryHint("Pesquise aqui, ex: plástico");
         editPesquisa.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -491,25 +494,31 @@ public class MainHomeActivity extends AppCompatActivity implements
                 .beginTransaction()
                 .remove(listfragment)
                 .commit();
-        checkChip();
+        limpandoChip();
 
     }
 
+    public void limpandoChip(){
+        chipgroup = findViewById(R.id.chipGroup);
+        chipgroup.removeAllViews();
+    }
 
     public void checkChip(){
-    plasticoCheckChip = findViewById(R.id.plasticochip);
+
     chipgroup = findViewById(R.id.chipGroup);
+    plasticoCheckChip = (Chip)findViewById(R.id.plasticochip);
 
-    chipgroup.removeAllViews();
+      //  if (plasticoCheckChip.isChecked()){
+      //      String plastico =  plasticoCheckChip.getText().toString();
+      //      Toast.makeText(this, "plastico", Toast.LENGTH_SHORT).show();
+      //  }
 
+        plasticoCheckChip.setOnCheckedChangeListener((new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-
-        if (plasticoCheckChip.isChecked()){
-            String plastico =  plasticoCheckChip.getText().toString();
-
-
-        }
-
+            }
+        }));
     }
 
 }

@@ -15,47 +15,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/plasticochip"
             android:text="plástico"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/teal_700"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/papelchip"
             android:text="papel"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.google.android.material.chip.Chip
             android:id="@+id/papelaochip"
             android:text="papelão"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.google.android.material.chip.Chip
             android:id="@+id/metal"
             android:text="metal"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.google.android.material.chip.Chip
             android:id="@+id/organico"
             android:text="orgânico"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.google.android.material.chip.Chip
             android:id="@+id/pilha"
             android:text="pilha"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.google.android.material.chip.Chip
             android:id="@+id/bateria"
             android:text="bateria"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.google.android.material.chip.Chip
             android:id="@+id/eletronico"
             android:text="eletrônico"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </com.google.android.material.chip.ChipGroup>
