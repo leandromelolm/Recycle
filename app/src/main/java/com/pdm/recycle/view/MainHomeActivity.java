@@ -1,12 +1,13 @@
 package com.pdm.recycle.view;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -21,7 +22,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -36,6 +36,9 @@ import android.view.View;
 //import android.widget.SearchView;
 import androidx.appcompat.widget.SearchView;
 
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -43,10 +46,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.navigation.ui.AppBarConfiguration;
 
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -57,12 +60,12 @@ import com.google.firebase.database.ValueEventListener;
 //import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
+import com.pdm.recycle.databinding.ActivityMainBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Coleta;
 import com.pdm.recycle.model.Descarte;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class MainHomeActivity extends AppCompatActivity implements
@@ -76,17 +79,21 @@ public class MainHomeActivity extends AppCompatActivity implements
     private Double latitude;
     private Double longitude;
     private String tipoResiduo, status, dataDescarte, dataColeta;
-    private ArrayList<Descarte> listDescarte;
+    //private ArrayList<Descarte> listDescarte;
     private DataSnapshot locaisDescarte;
     private String idDescarte;
     private String userEmail;
     private String emailUserAutenticado;
     private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
-    private AppBarConfiguration appBarConfiguration;
+    //private AppBarConfiguration appBarConfiguration;
     //private FirebaseAuth autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
     private FirebaseAuth autenticacao;
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
     //private MaterialSearchView searchView;
+    private MenuItem listsearch;
+    private ListFragment listfragment;
+    private Chip plasticoCheckChip;
+    private ChipGroup chipgroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +106,7 @@ public class MainHomeActivity extends AppCompatActivity implements
         inicializarComponentes();
 
         requestPermission();
+
 
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
@@ -378,12 +386,17 @@ public class MainHomeActivity extends AppCompatActivity implements
         MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                Toast.makeText(MainHomeActivity.this, "implementar sugestões de pesquisa", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainHomeActivity.this, "implementar sugestões de pesquisa", Toast.LENGTH_SHORT).show();
+                listfragment = new ListFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListFragment()).commit();
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                fecharOpcoesPesquisa();
+                //Toast.makeText(MainHomeActivity.this, "teste fechando menu pesquisa", Toast.LENGTH_SHORT).show();
+                recuperarLocaisDescarte();
                 return true;
             }
         };
@@ -468,6 +481,35 @@ public class MainHomeActivity extends AppCompatActivity implements
         //DrawableCompat.setTint(vectorDrawable, color);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+
+    public void fecharOpcoesPesquisa(){
+        //getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
+        listfragment = new ListFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(listfragment)
+                .commit();
+        checkChip();
+
+    }
+
+
+    public void checkChip(){
+    plasticoCheckChip = findViewById(R.id.plasticochip);
+    chipgroup = findViewById(R.id.chipGroup);
+
+    chipgroup.removeAllViews();
+
+
+
+        if (plasticoCheckChip.isChecked()){
+            String plastico =  plasticoCheckChip.getText().toString();
+
+
+        }
+
     }
 
 }
