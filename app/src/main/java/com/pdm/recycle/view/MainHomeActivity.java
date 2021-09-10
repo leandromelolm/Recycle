@@ -1,8 +1,6 @@
 package com.pdm.recycle.view;
 
 import android.Manifest;
-import android.app.Fragment;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,26 +30,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 //import android.widget.SearchView;
 import androidx.appcompat.widget.SearchView;
-
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-
-
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,7 +52,6 @@ import com.pdm.recycle.control.ConfiguracaoFirebase;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Coleta;
 import com.pdm.recycle.model.Descarte;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -94,10 +78,11 @@ public class MainHomeActivity extends AppCompatActivity implements
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabaseReference();
     //private MaterialSearchView searchView;
     private MenuItem listsearch;
-    private ListFragment listfragment;
+    private ListChipFragment listfragment;
 
     private ChipGroup chipgroup;
     private String textoChip;
+    private Boolean activeMenuFilter = false;
 
 
     @Override
@@ -148,6 +133,7 @@ public class MainHomeActivity extends AppCompatActivity implements
             mMap.setMyLocationEnabled(this.fine_location);
         }
     }
+
     private void pesquisarLocaisDescarte(String texto){
         //Log.d("pesquisa",texto);
         DatabaseReference coletas = referencia.child("coletas");
@@ -390,14 +376,15 @@ public class MainHomeActivity extends AppCompatActivity implements
             public boolean onMenuItemActionExpand(MenuItem item) {
 
                 /**  exibindo opções de chip ao usuário com listfragment */
-                listfragment = new ListFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListFragment()).commit();
+                //listfragment = new ListChipFragment();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListChipFragment()).commit();
+
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                fecharOpcoesPesquisa();
+                //fecharOpcoesPesquisa();
                 //Toast.makeText(MainHomeActivity.this, "teste fechando menu pesquisa", Toast.LENGTH_SHORT).show();
                 recuperarLocaisDescarte();
                 return true;
@@ -494,22 +481,32 @@ public class MainHomeActivity extends AppCompatActivity implements
 
     public void fecharOpcoesPesquisa(){
         //getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
-        //listfragment = new ListFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(listfragment)
-                .commit();
+        //listfragment = new ListChipFragment();
+        //getSupportFragmentManager()
+        //       .beginTransaction()
+        //        .remove(listfragment)
+        //        .commit();
+
         /**  limpando exibição dos chips que são exibidos ao selecionar o botão de pesquisa */
-        limpandoChip();
+        fecharChipGroup();
 
     }
     public void openChipList(){
-        listfragment = new ListFragment();
-        /* exibir o groupChip na MainHomeActivity*/
-        getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListFragment()).commit();
+
+        if (!activeMenuFilter){
+            listfragment = new ListChipFragment();
+
+            /* exibir o groupChip na MainHomeActivity*/
+            getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListChipFragment()).commit();
+
+            activeMenuFilter = true;
+        }else if(activeMenuFilter) {
+            activeMenuFilter = false;
+            fecharChipGroup();
+        }
     }
 
-    public void limpandoChip(){
+    public void fecharChipGroup(){
         chipgroup = findViewById(R.id.chipGroup);
         chipgroup.removeAllViews();
     }

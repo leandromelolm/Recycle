@@ -15,7 +15,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.pdm.recycle.R;
 
 
-public class ListFragment extends Fragment {
+public class ListChipFragment extends Fragment {
 
     private Chip chipPlastico,
             chipPapel,
