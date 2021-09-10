@@ -453,7 +453,7 @@ public class MainHomeActivity extends AppCompatActivity implements
     }
 
     public void redirectDescarte(View v) {
-        Intent intent = new Intent(this, DescarteActivity.class);
+        Intent intent = new Intent(this, DescarteSelectActivity.class);
         startActivity(intent);
     }
 

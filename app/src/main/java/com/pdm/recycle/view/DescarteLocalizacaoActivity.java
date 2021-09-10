@@ -33,7 +33,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
-import com.pdm.recycle.databinding.ActivityHomeBinding;
+//import com.pdm.recycle.databinding.ActivityHomeBinding;
+import com.pdm.recycle.databinding.ActivityDescarteLocationBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Descarte;
 
@@ -50,7 +51,9 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
     private String latlongString;
     private GoogleMap mMap;
     private boolean touchMaps=false;
-    private ActivityHomeBinding binding;
+    //private ActivityHomeBinding binding;
+    private ActivityDescarteLocationBinding binding;
+
     private static final int FINE_LOCATION_REQUEST = 1;
     private boolean fine_location;
     private FirebaseAuth autenticacao;
@@ -60,7 +63,8 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        //binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityDescarteLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -265,7 +269,7 @@ public class DescarteLocalizacaoActivity extends FragmentActivity implements OnM
     }
 
     public void redirectDescarte(View v) {
-        Intent intent = new Intent(this, DescarteActivity.class);
+        Intent intent = new Intent(this, DescarteSelectActivity.class);
         startActivity(intent);
     }
 

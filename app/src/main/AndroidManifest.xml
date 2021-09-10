@@ -19,7 +19,7 @@
             android:name=".view.MainHomeActivity"
             android:label="@string/title_activity_main_home"
             android:theme="@style/Theme.Recycle.NoActionBar" />
-        <activity android:name=".view.DescarteActivity" />
+        <activity android:name=".view.DescarteSelectActivity" />
         <activity android:name=".view.MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

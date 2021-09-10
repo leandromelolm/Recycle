@@ -13,7 +13,7 @@ import com.pdm.recycle.R;
 
 import java.util.ArrayList;
 
-public class DescarteActivity extends AppCompatActivity {
+public class DescarteSelectActivity extends AppCompatActivity {
 
     ArrayList<String> listaResiduos = new ArrayList<>();
     private CheckBox checkMetal,
@@ -103,7 +103,7 @@ public class DescarteActivity extends AppCompatActivity {
             Log.i("TIPO_Descarte", discardText);
             Log.i("TIPO_Des_Array", String.valueOf(listaResiduos));
         }else{
-            Toast.makeText(DescarteActivity.this,
+            Toast.makeText(DescarteSelectActivity.this,
                     "Selecione ao menos um tipo de resíduo!", Toast.LENGTH_SHORT).show();
         }
     }

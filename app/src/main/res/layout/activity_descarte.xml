@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DescarteActivity">
+    tools:context=".view.DescarteSelectActivity">
 
     <TextView
         android:id="@+id/o_que_descartar"
