@@ -30,7 +30,7 @@ public class ListFragment extends Fragment {
             chipResiduoColetado,
             chipResiduoNaoEncontrado,
             chipResiduoDescartadoHoje;
-    private ChipGroup chipGroup2;
+    private ChipGroup chipGroup;
 
     //private ActivityMainBinding binding;
 
@@ -61,8 +61,6 @@ public class ListFragment extends Fragment {
         chipResiduoNaoEncontrado  = v.findViewById(R.id.chipResiduoNaoEncontrado);
         chipResiduoDescartadoHoje = v.findViewById(R.id.chipResiduoDescartadoHoje);
 
-        chipGroup2 = v.findViewById(R.id.chipGroup);
-
         String plasticoText     = chipPlastico.getText().toString();
         String papelText        = chipPapel.getText().toString();
         String metalText        = chipMetal.getText().toString();
@@ -78,10 +76,13 @@ public class ListFragment extends Fragment {
         String residuoDescartadoHojeText      = chipResiduoDescartadoHoje.getText().toString();
 
 
+        chipGroup = v.findViewById(R.id.chipGroup);
+
+
         /* Capturando o evento de seleção do chip */
 
         /* tipo de residuo descartado */
-        chipPlastico.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       chipPlastico.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(chipPlastico.isChecked()){
@@ -163,7 +164,7 @@ public class ListFragment extends Fragment {
             }
         });
 
-        /* status do residuos  */
+        //* status do residuos  */
 
         chipResiduoColetado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -190,18 +191,32 @@ public class ListFragment extends Fragment {
             }
         });
 
+/*
+        //Implementação usando o chipGroup para verificar seleção
+        // essa implementação diminui a quantidade de linhas
+        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ChipGroup group, int checkedId) {
+                Chip marcado = chipGroup.findViewById(checkedId);
 
-
-//        chipGroup2.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(ChipGroup group, int checkedId) {
-//                Chip marcado = findViewById(checkedId);
-//            }
-//        });
+                if(marcado.getText().equals("plástico")){
+                    Log.i("chipPlastico", " plástico marcado");
+                    ((MainHomeActivity) getActivity()).checkChip(plasticoText);
+                }else if(marcado.getText().equals("papel")){
+                    Log.i("chipPapel", " papel marcado");
+                    ((MainHomeActivity) getActivity()).checkChip(papelText);
+                }else if(marcado.getText().equals("metal")){
+                Log.i("chipMetal", " metal marcado");
+                ((MainHomeActivity) getActivity()).checkChip(metalText);
+                }else if(marcado.getText().equals("orgânico")){
+                    Log.i("chipOrganico", " orgânico marcado");
+                    ((MainHomeActivity) getActivity()).checkChip(organicoText);
+                }
+                //continuar implementação
+            }
+        });
+*/
 
         return v;
     }
-
-
-
 }

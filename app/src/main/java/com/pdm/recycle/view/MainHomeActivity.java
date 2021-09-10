@@ -523,7 +523,8 @@ public class MainHomeActivity extends AppCompatActivity implements
                 pesquisarLocaisDescarte( textoChip);
         }
 
-/*        if(chip.equals("resíduo coletado")){
+/*        
+        if(chip.equals("resíduo coletado")){
             pesquisarLocaisDescarte( "coletado");
         }else if(chip.equals("resíduo não encontrado")){
                     pesquisarLocaisDescarte( "não encontrado");
