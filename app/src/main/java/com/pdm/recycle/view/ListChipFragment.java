@@ -218,7 +218,6 @@ public class ListChipFragment extends Fragment {
             }
         });
 */
-
         return v;
     }
 }

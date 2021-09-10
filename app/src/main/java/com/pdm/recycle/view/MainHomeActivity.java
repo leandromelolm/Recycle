@@ -202,7 +202,7 @@ public class MainHomeActivity extends AppCompatActivity implements
         }
     }
 
-    private void recuperarLocaisDescarte() {
+    private void recuperarTodosLocaisDescarte() {
 
         DatabaseReference descartes = referencia.child("descartes");
 
@@ -329,7 +329,7 @@ public class MainHomeActivity extends AppCompatActivity implements
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 13));
 
         /* caso não tenha nada salvo no banco de dados, o programa fecha inesperadamente*/
-        recuperarLocaisDescarte();
+        recuperarTodosLocaisDescarte();
 
         mMap.setOnInfoWindowClickListener(this);
         mMap.setPadding(0,250,0,250);
@@ -386,7 +386,7 @@ public class MainHomeActivity extends AppCompatActivity implements
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 //fecharOpcoesPesquisa();
                 //Toast.makeText(MainHomeActivity.this, "teste fechando menu pesquisa", Toast.LENGTH_SHORT).show();
-                recuperarLocaisDescarte();
+                recuperarTodosLocaisDescarte();
                 return true;
             }
         };
@@ -411,7 +411,7 @@ public class MainHomeActivity extends AppCompatActivity implements
                     pesquisarLocaisDescarte( newText );
                 }
                 if(newText.length() == 0){
-                    recuperarLocaisDescarte();
+                    recuperarTodosLocaisDescarte();
                 }
                 return true;
             }
@@ -430,7 +430,7 @@ public class MainHomeActivity extends AppCompatActivity implements
                 finish();
                 break;
             case R.id.menu_filter:
-                openChipList();
+                openChipGroupList();
                 return true;
             case R.id.menu_notification:
                 openNotification();
@@ -439,8 +439,6 @@ public class MainHomeActivity extends AppCompatActivity implements
                 openSetting();
                 return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -482,10 +480,10 @@ public class MainHomeActivity extends AppCompatActivity implements
     /** Método exibe chips dentro da Pesquisa do menu principal*/
     public void fecharOpcoesPesquisa(){
         /**  limpando exibição dos chips que são exibidos ao selecionar o botão de pesquisa */
-        fecharChipGroup();
+        closeChipGroup();
     }
 
-    public void openChipList(){
+    public void openChipGroupList(){
 
         if (!activeMenuFilter){
             listfragment = new ListChipFragment();
@@ -496,12 +494,12 @@ public class MainHomeActivity extends AppCompatActivity implements
             activeMenuFilter = true;
         }else if(activeMenuFilter) {
             activeMenuFilter = false;
-            fecharChipGroup();
-            recuperarLocaisDescarte();
+            closeChipGroup();
+            recuperarTodosLocaisDescarte();
         }
     }
 
-    public void fecharChipGroup(){
+    public void closeChipGroup(){
         chipgroup = findViewById(R.id.chipGroup);
         chipgroup.removeAllViews();
     }
@@ -521,12 +519,11 @@ public class MainHomeActivity extends AppCompatActivity implements
                 pesquisarLocaisDescarte("outros");
                 break;
             case "todos":
-                recuperarLocaisDescarte();
+                recuperarTodosLocaisDescarte();
                 break;
             default:
                 pesquisarLocaisDescarte( textoChip);
         }
-
 /*        
         if(chip.equals("resíduo coletado")){
             pesquisarLocaisDescarte( "coletado");
@@ -537,6 +534,5 @@ public class MainHomeActivity extends AppCompatActivity implements
                     }else
                             pesquisarLocaisDescarte( textoChip);
 */
-
     }
 }
