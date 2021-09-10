@@ -20,9 +20,9 @@
         android:id="@+id/chipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="0dp"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
@@ -30,8 +30,10 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/teal_700"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
             android:checkable="true"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="plástico" />
 
         <com.google.android.material.chip.Chip
@@ -39,6 +41,10 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
+            app:chipIcon="@drawable/papel_icon"
             android:text="papel" />
         <!--
         <com.google.android.material.chip.Chip
@@ -53,6 +59,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="metal" />
 
         <com.google.android.material.chip.Chip
@@ -60,6 +69,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="orgânico" />
 
         <com.google.android.material.chip.Chip
@@ -67,6 +79,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="pilha" />
 
         <com.google.android.material.chip.Chip
@@ -74,6 +89,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="bateria" />
 
         <com.google.android.material.chip.Chip
@@ -81,6 +99,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="eletrônico" />
 
         <com.google.android.material.chip.Chip
@@ -88,6 +109,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="óleo de cozinha" />
 
         <com.google.android.material.chip.Chip
@@ -95,6 +119,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/teal_700"
+            android:textColor="@color/white"
+            app:checkedIcon="@drawable/descarte_icon"
             android:text="outro tipo de residuo" />
 
         <com.google.android.material.chip.Chip
@@ -102,6 +129,8 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="#808080"
+            android:textColor="@color/white"
             android:text="resíduo coletado" />
 
         <com.google.android.material.chip.Chip
@@ -109,6 +138,8 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="#808080"
+            android:textColor="@color/white"
             android:text="resíduo não encontrado" />
 
         <com.google.android.material.chip.Chip
@@ -116,6 +147,9 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checkable="false"
+            app:chipBackgroundColor="#808080"
+            android:textColor="@color/white"
             android:text="resíduo descartado hoje" />
         <!---->
     </com.google.android.material.chip.ChipGroup>

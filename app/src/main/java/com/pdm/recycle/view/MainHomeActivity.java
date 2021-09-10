@@ -64,7 +64,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 //import com.pdm.recycle.databinding.ActivityMainBinding;
-import com.pdm.recycle.databinding.ActivityMainBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Coleta;
 import com.pdm.recycle.model.Descarte;
@@ -385,11 +384,12 @@ public class MainHomeActivity extends AppCompatActivity implements
         MenuInflater inflater =  getMenuInflater();
         inflater.inflate(R.menu.menu_mainhome, menu);
 
-        //configuração botão pesquisa
+        /** Configurações do botão de pesquisa */
         MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-               // Toast.makeText(MainHomeActivity.this, "implementar sugestões de pesquisa", Toast.LENGTH_SHORT).show();
+
+                /**  exibindo opções de chip ao usuário com listfragment */
                 listfragment = new ListFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListFragment()).commit();
                 return true;
@@ -442,6 +442,9 @@ public class MainHomeActivity extends AppCompatActivity implements
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.menu_filter:
+                openChipList();
+                return true;
             case R.id.menu_notification:
                 openNotification();
                 return true;
@@ -491,13 +494,19 @@ public class MainHomeActivity extends AppCompatActivity implements
 
     public void fecharOpcoesPesquisa(){
         //getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
-        listfragment = new ListFragment();
+        //listfragment = new ListFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(listfragment)
                 .commit();
+        /**  limpando exibição dos chips que são exibidos ao selecionar o botão de pesquisa */
         limpandoChip();
 
+    }
+    public void openChipList(){
+        listfragment = new ListFragment();
+        /* exibir o groupChip na MainHomeActivity*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListFragment()).commit();
     }
 
     public void limpandoChip(){
@@ -518,6 +527,9 @@ public class MainHomeActivity extends AppCompatActivity implements
                 break;
             case "outro tipo de residuo":
                 pesquisarLocaisDescarte("outros");
+                break;
+            case "todos":
+                recuperarLocaisDescarte();
                 break;
             default:
                 pesquisarLocaisDescarte( textoChip);

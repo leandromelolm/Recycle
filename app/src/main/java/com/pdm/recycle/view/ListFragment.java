@@ -83,6 +83,7 @@ public class ListFragment extends Fragment {
 
         /* tipo de residuo descartado */
        chipPlastico.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(chipPlastico.isChecked()){
@@ -90,9 +91,10 @@ public class ListFragment extends Fragment {
                     Log.i("chipPlastico", " Plastico marcado");
                     ((MainHomeActivity) getActivity()).checkChip(plasticoText);
 
-                }else{
+                }else if(!chipPlastico.isChecked() && !chipPapel.isChecked()){
                     //Toast.makeText(getActivity(), "Plastico desmarcado", Toast.LENGTH_SHORT).show();
                     Log.i("chipPlastico", " Plástico desmarcardo");
+                    ((MainHomeActivity) getActivity()).checkChip("todos");
                 }
             }
         });
