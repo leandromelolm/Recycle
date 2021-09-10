@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragmentlist"
+    tools:context=".view.ListFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+<HorizontalScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginTop="10dp">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPlastico"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_700"
+            android:checkable="true"
+            android:text="plástico" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPapel"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="papel" />
+        <!--
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPapelao"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="papelão" />
+-->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMetal"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="metal" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipOrganico"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="orgânico" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPilha"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pilha" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipBateria"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bateria" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipEletronico"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="eletrônico" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipOleoCozinha"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="óleo de cozinha" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipOutroResiduo"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="outro tipo de residuo" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipResiduoColetado"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="resíduo coletado" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipResiduoNaoEncontrado"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="resíduo não encontrado" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipResiduoDescartadoHoje"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="resíduo descartado hoje" />
+        <!---->
+    </com.google.android.material.chip.ChipGroup>
+
+</HorizontalScrollView>
+</FrameLayout>

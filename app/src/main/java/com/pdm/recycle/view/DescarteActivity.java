@@ -26,7 +26,6 @@ public class DescarteActivity extends AppCompatActivity {
             checkOutros;
     private String discardText;
     //private String emailUserAutenticado;
-
     //private TextView descarteSelecionados;
     //private CheckBox checkbox;
 
@@ -38,7 +37,7 @@ public class DescarteActivity extends AppCompatActivity {
 
         //String valor = checkbox.getText().toString();
 
-        this.checkMetal = findViewById(R.id.metais);
+        this.checkMetal = findViewById(R.id.metal);
         checkPapelPapelao = findViewById(R.id.papelPapelao);
         checkPlastico = findViewById(R.id.plastico);
         checkPilhaBateria = findViewById(R.id.pilhaBateria);
@@ -47,8 +46,6 @@ public class DescarteActivity extends AppCompatActivity {
         checkResiduosOrganicos = findViewById(R.id.residuoOrganio);
         checkOutros = findViewById(R.id.outros);
 
-        //Intent intent = getIntent();
-        //emailUserAutenticado = intent.getStringExtra("chaveEmail");
     }
 
     public void checkbox(){
@@ -109,19 +106,15 @@ public class DescarteActivity extends AppCompatActivity {
             Toast.makeText(DescarteActivity.this,
                     "Selecione ao menos um tipo de resíduo!", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void avancarMapaDescarte(View view){
-
         checkbox();
     }
 
     public void redirectMapsDescarte(ArrayList<String> view) {
-
         Intent it = new Intent(this, DescarteLocalizacaoActivity.class);
         it.putExtra("chave", discardText);
-
         it.putStringArrayListExtra("residuosSelecionados", listaResiduos);
         startActivity(it);
     }

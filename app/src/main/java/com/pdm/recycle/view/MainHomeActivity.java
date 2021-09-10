@@ -38,8 +38,10 @@ import androidx.appcompat.widget.SearchView;
 
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -62,6 +64,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pdm.recycle.R;
 import com.pdm.recycle.control.ConfiguracaoFirebase;
 //import com.pdm.recycle.databinding.ActivityMainBinding;
+import com.pdm.recycle.databinding.ActivityMainBinding;
 import com.pdm.recycle.helper.Base64Custom;
 import com.pdm.recycle.model.Coleta;
 import com.pdm.recycle.model.Descarte;
@@ -93,9 +96,10 @@ public class MainHomeActivity extends AppCompatActivity implements
     //private MaterialSearchView searchView;
     private MenuItem listsearch;
     private ListFragment listfragment;
-    private Chip plasticoCheckChip;
+
     private ChipGroup chipgroup;
-    String newtext;
+    private String textoChip;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,13 +113,9 @@ public class MainHomeActivity extends AppCompatActivity implements
 
         requestPermission();
 
-
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
         emailUserAutenticado = usuarioAtual.getEmail();
-
-        //searchView = findViewById(R.id.materialSearchPrincipal);
-
     }
 
     private void requestPermission() {
@@ -170,7 +170,6 @@ public class MainHomeActivity extends AppCompatActivity implements
             Coleta coleta = objSnapshot.getValue(Coleta.class);
             dataColeta = coleta.getDataColeta();
 
-
             Log.i("local_descarte", localDescarte.toString());
 
             if (tipoResiduo.contains(texto.toLowerCase()) && status.startsWith("não coletado")) {
@@ -186,6 +185,7 @@ public class MainHomeActivity extends AppCompatActivity implements
                         "\n\nDescartado por: " + userEmail +
                         "\n\nCoordenada: " + localDescarte);
 
+            //} if(status.contains(texto.toLowerCase()) && status.equals("coletado")){
             } if(status.contains(texto.toLowerCase()) && status.equals("coletado")){
                 Marker marker = mMap.addMarker(
                         new MarkerOptions()
@@ -327,7 +327,6 @@ public class MainHomeActivity extends AppCompatActivity implements
             Toast.makeText(this, "Reportado!",Toast.LENGTH_LONG).show();
         }
     }
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -344,7 +343,9 @@ public class MainHomeActivity extends AppCompatActivity implements
         // mMap.addMarker(new MarkerOptions().position(ifRecife).title("Local"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 13));
 
+        /* caso não tenha nada salvo no banco de dados, o programa fecha inesperadamente*/
         recuperarLocaisDescarte();
+
         mMap.setOnInfoWindowClickListener(this);
         mMap.setPadding(0,250,0,250);
     }
@@ -407,7 +408,9 @@ public class MainHomeActivity extends AppCompatActivity implements
         MenuItem pesquisa = menu.findItem(R.id.menu_search);
         SearchView editPesquisa = (SearchView) pesquisa.getActionView();
         editPesquisa.setQueryHint("Pesquise aqui, ex: plástico");
+
         editPesquisa.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
 
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -486,7 +489,6 @@ public class MainHomeActivity extends AppCompatActivity implements
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-
     public void fecharOpcoesPesquisa(){
         //getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
         listfragment = new ListFragment();
@@ -503,22 +505,33 @@ public class MainHomeActivity extends AppCompatActivity implements
         chipgroup.removeAllViews();
     }
 
-    public void checkChip(){
+    public <chip> void checkChip(String chip){
+        textoChip = chip;
+        Toast.makeText(this, "Selecionado: " + textoChip, Toast.LENGTH_SHORT).show();
 
-    chipgroup = findViewById(R.id.chipGroup);
-    plasticoCheckChip = (Chip)findViewById(R.id.plasticochip);
+        switch (chip){
+            case "resíduo coletado":
+                pesquisarLocaisDescarte( "coletado");
+                break;
+            case "resíduo não encontrado":
+                pesquisarLocaisDescarte( "não encontrado");
+                break;
+            case "outro tipo de residuo":
+                pesquisarLocaisDescarte("outros");
+                break;
+            default:
+                pesquisarLocaisDescarte( textoChip);
+        }
 
-      //  if (plasticoCheckChip.isChecked()){
-      //      String plastico =  plasticoCheckChip.getText().toString();
-      //      Toast.makeText(this, "plastico", Toast.LENGTH_SHORT).show();
-      //  }
+/*        if(chip.equals("resíduo coletado")){
+            pesquisarLocaisDescarte( "coletado");
+        }else if(chip.equals("resíduo não encontrado")){
+                    pesquisarLocaisDescarte( "não encontrado");
+              }else if(chip.equals("outro tipo de residuo")){
+                        pesquisarLocaisDescarte( "outros");
+                    }else
+                            pesquisarLocaisDescarte( textoChip);
+*/
 
-        plasticoCheckChip.setOnCheckedChangeListener((new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        }));
     }
-
 }
