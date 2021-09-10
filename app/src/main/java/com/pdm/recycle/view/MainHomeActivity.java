@@ -479,18 +479,12 @@ public class MainHomeActivity extends AppCompatActivity implements
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
+    /** Método exibe chips dentro da Pesquisa do menu principal*/
     public void fecharOpcoesPesquisa(){
-        //getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
-        //listfragment = new ListChipFragment();
-        //getSupportFragmentManager()
-        //       .beginTransaction()
-        //        .remove(listfragment)
-        //        .commit();
-
         /**  limpando exibição dos chips que são exibidos ao selecionar o botão de pesquisa */
         fecharChipGroup();
-
     }
+
     public void openChipList(){
 
         if (!activeMenuFilter){
@@ -503,6 +497,7 @@ public class MainHomeActivity extends AppCompatActivity implements
         }else if(activeMenuFilter) {
             activeMenuFilter = false;
             fecharChipGroup();
+            recuperarLocaisDescarte();
         }
     }
 
