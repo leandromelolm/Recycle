@@ -14,10 +14,13 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.pdm.recycle.R;
 
+import static android.view.View.NO_ID;
+
 
 public class ListChipFragment extends Fragment {
 
-    private Chip chipPlastico,
+    private Chip chipTodos,
+            chipPlastico,
             chipPapel,
             chipPapelao,
             chipMetal,
@@ -47,6 +50,7 @@ public class ListChipFragment extends Fragment {
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         //View vv = binding.getRoot();
 
+        chipTodos         = v.findViewById(R.id.chipTodos);
         chipPlastico      = v.findViewById(R.id.chipPlastico);
         chipPapel         = v.findViewById(R.id.chipPapel);
         chipMetal         = v.findViewById(R.id.chipMetal);
@@ -61,6 +65,7 @@ public class ListChipFragment extends Fragment {
         chipResiduoNaoEncontrado  = v.findViewById(R.id.chipResiduoNaoEncontrado);
         chipResiduoDescartadoHoje = v.findViewById(R.id.chipResiduoDescartadoHoje);
 
+        String todosText        = chipTodos.getText().toString();
         String plasticoText     = chipPlastico.getText().toString();
         String papelText        = chipPapel.getText().toString();
         String metalText        = chipMetal.getText().toString();
@@ -78,34 +83,42 @@ public class ListChipFragment extends Fragment {
 
         chipGroup = v.findViewById(R.id.chipGroup);
 
-
         /* Capturando o evento de seleção do chip */
 
         /* tipo de residuo descartado */
-       chipPlastico.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
+        chipTodos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(chipTodos.isChecked()){
+                    //Toast.makeText(getActivity(), "Plastico marcado", Toast.LENGTH_SHORT).show();
+                    Log.i("chipPlastico", " Plastico marcado ");
+                    ((MainHomeActivity) getActivity()).checkChip(todosText);
+                }
+            }
+        });
+       chipPlastico.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(chipPlastico.isChecked()){
                     //Toast.makeText(getActivity(), "Plastico marcado", Toast.LENGTH_SHORT).show();
-                    Log.i("chipPlastico", " Plastico marcado");
+                    Log.i("chipPlastico", " Plastico marcado ");
                     ((MainHomeActivity) getActivity()).checkChip(plasticoText);
 
-                }else if(!chipPlastico.isChecked() && !chipPapel.isChecked()){
+                }
+/*                else if(!chipPlastico.isChecked() && !chipPapel.isChecked()){
                     //Toast.makeText(getActivity(), "Plastico desmarcado", Toast.LENGTH_SHORT).show();
                     Log.i("chipPlastico", " Plástico desmarcardo");
                     ((MainHomeActivity) getActivity()).checkChip("todos");
-                }
+                }*/
             }
         });
         chipPapel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(chipPapel.isChecked()){
-                    Log.i("chipPapel", " Papel marcado");
+                    Log.i("chipPapel", " Papel marcado ");
                     ((MainHomeActivity) getActivity()).checkChip(papelText);
-                }else{
-                    Log.i("chipPapel", " Papel desmarcardo");
                 }
             }
         });
@@ -193,14 +206,14 @@ public class ListChipFragment extends Fragment {
             }
         });
 
-/*
-        //Implementação usando o chipGroup para verificar seleção
+
+        /** Implementação usando o chipGroup */
         // essa implementação diminui a quantidade de linhas
         chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ChipGroup group, int checkedId) {
                 Chip marcado = chipGroup.findViewById(checkedId);
-
+/*
                 if(marcado.getText().equals("plástico")){
                     Log.i("chipPlastico", " plástico marcado");
                     ((MainHomeActivity) getActivity()).checkChip(plasticoText);
@@ -215,9 +228,11 @@ public class ListChipFragment extends Fragment {
                     ((MainHomeActivity) getActivity()).checkChip(organicoText);
                 }
                 //continuar implementação
+
+*/
             }
         });
-*/
+
         return v;
     }
 }

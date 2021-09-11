@@ -3,10 +3,12 @@ package com.pdm.recycle.view;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -89,6 +91,12 @@ public class MainHomeActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
+
+        //bloqueia na orientação retrato (PORTRAIT) a activity_main_home
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //Corrigir bug : Quando se tenta mudar a orientação da tela com fragment_list_chip ativo o app fecha inesperadamente.
+        //Solução de momento está sendo bloquear a orientação da activity_main_home
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Recycle");
         setSupportActionBar(toolbar);
@@ -155,7 +163,7 @@ public class MainHomeActivity extends AppCompatActivity implements
             Coleta coleta = objSnapshot.getValue(Coleta.class);
             dataColeta = coleta.getDataColeta();
 
-            Log.i("local_descarte", localDescarte.toString());
+            //Log.i("local_descarte", localDescarte.toString());
 
             if (tipoResiduo.contains(texto.toLowerCase()) && status.startsWith("não coletado")) {
                 Marker marker = mMap.addMarker(
@@ -229,7 +237,7 @@ public class MainHomeActivity extends AppCompatActivity implements
                     userEmail =  descarte.getUserEmail();
                     LatLng localDescarte = new LatLng(latitude, longitude);
 
-                    Log.i("local_descarte", localDescarte.toString());
+                    //Log.i("local_descarte", localDescarte.toString());
 
                     if (status.startsWith("não coletado")) {
                         Marker marker = mMap.addMarker(
@@ -489,13 +497,21 @@ public class MainHomeActivity extends AppCompatActivity implements
             listfragment = new ListChipFragment();
 
             /* exibir o groupChip na MainHomeActivity*/
-            getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListChipFragment()).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.map,new ListChipFragment()).commit();
+
+//            getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
+//            getSupportFragmentManager().beginTransaction().add(R.id.map,listfragment).commit();
+
+            getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.map,listfragment).commit();
 
             activeMenuFilter = true;
+
         }else if(activeMenuFilter) {
             activeMenuFilter = false;
             closeChipGroup();
             recuperarTodosLocaisDescarte();
+            getSupportFragmentManager().beginTransaction().remove(listfragment).commit();
         }
     }
 
