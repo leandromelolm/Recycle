@@ -532,7 +532,7 @@ public class MainHomeActivity extends AppCompatActivity implements
                 pesquisarLocaisDescarte( "não encontrado");
                 break;
             case "outro tipo de residuo":
-                pesquisarLocaisDescarte("outros");
+                pesquisarLocaisDescarte("outro");
                 break;
             case "todos":
                 recuperarTodosLocaisDescarte();
