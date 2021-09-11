@@ -320,6 +320,7 @@ public class MainHomeActivity extends AppCompatActivity implements
             Toast.makeText(this, "Reportado!",Toast.LENGTH_LONG).show();
         }
     }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -333,27 +334,28 @@ public class MainHomeActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng ifRecife = new LatLng(-8.058320, -34.950611);
+
         // mMap.addMarker(new MarkerOptions().position(ifRecife).title("Local"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 13));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ifRecife, 12));
 
         /* caso não tenha nada salvo no banco de dados, o programa fecha inesperadamente*/
         recuperarTodosLocaisDescarte();
 
         mMap.setOnInfoWindowClickListener(this);
-        mMap.setPadding(0,250,0,250);
+
+        mMap.setPadding(0,250,0,230);
+
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        //Toast.makeText(this, "Teste Classe onInfoWindowClick ",
-        // Toast.LENGTH_SHORT).show();
 
-        // setup the alert builder
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("O que deseja informar?");
-        builder.setMessage(marker.getTitle() +
-                "\n" + marker.getTag());
-        // add the buttons
+            // setup the alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("O que deseja informar?");
+            builder.setMessage(marker.getTitle() +
+                    "\n" + marker.getTag());
+            // add the buttons
             builder.setPositiveButton("Foi coletado", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -366,11 +368,12 @@ public class MainHomeActivity extends AppCompatActivity implements
                     informarNaoEncontrado(marker.getPosition());
                 }
             });
-        builder.setNeutralButton("Cancelar", null);
+            builder.setNeutralButton("Cancelar", null);
 
-        // create and show the alert dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
+            // create and show the alert dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
     }
 
     @Override
