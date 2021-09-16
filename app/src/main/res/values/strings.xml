@@ -23,7 +23,7 @@
     <string name="onde_vai_descarta">Onde vai descartar?</string>
     <string name="descarte_type_btn">Seguinte</string>
 
-    <string name="title_activity_main_home">MainHomeActivity</string>
+    <string name="title_activity_main_home">Recycle</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

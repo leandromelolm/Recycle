@@ -90,24 +90,27 @@ public class MainHomeActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_home);
 
+        try {
+            setContentView(R.layout.activity_main_home);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            toolbar.setTitle("Recycle");
+
+            inicializarComponentes();
+
+            requestPermission();
+
+            autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+            FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
+            emailUserAutenticado = usuarioAtual.getEmail();
+
+        }catch (Exception exception){
+           Intent intent = new Intent(MainHomeActivity.this, MainHomeActivity.class);
+            startActivity( intent );
+        }
         //bloqueia na orientação retrato (PORTRAIT) a activity_main_home
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //Corrigir bug : Quando se tenta mudar a orientação da tela com fragment_list_chip ativo o app fecha inesperadamente.
-        //Solução de momento está sendo bloquear a orientação da activity_main_home
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Recycle");
-        setSupportActionBar(toolbar);
-
-        inicializarComponentes();
-
-        requestPermission();
-
-        autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        FirebaseUser usuarioAtual =  autenticacao.getCurrentUser();
-        emailUserAutenticado = usuarioAtual.getEmail();
+        //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     private void requestPermission() {
